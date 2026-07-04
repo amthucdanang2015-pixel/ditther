@@ -9,21 +9,21 @@ const steps = [
     title: "Drop any image or video",
     description:
       "Drag in a photo, paste a URL, or pick one of the built-in backgrounds. JPG, PNG, WebP and video all work.",
-    video: "/video/video1.mp4",
+    video: "https://res.cloudinary.com/dpmczirwo/video/upload/v1783174985/video1_qxwx1w.mp4",
   },
   {
     number: "02",
     title: "Hit Shuffle or Remix",
     description:
       "One click randomises your effect, filters and background. Keep clicking until you love the result.",
-    video: "/video/video2.mp4",
+    video: "https://res.cloudinary.com/dpmczirwo/video/upload/v1783174985/video2_b6syus.mp4",
   },
   {
     number: "03",
     title: "Save your look",
     description:
       "Export in standard or 4K resolution. Save presets and reuse them later.",
-    video: "/video/video3.mp4",
+    video: "https://res.cloudinary.com/dpmczirwo/video/upload/v1783174985/video3_e9ioir.mp4",
   },
 ];
 
