@@ -5,6 +5,7 @@ import HIW from "@/components/HIW";
 import Pricing from "@/components/Pricing";
 import Guides from "@/components/Guides";
 import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer2";
 
 export default function Home() {
   return (
@@ -14,10 +15,9 @@ export default function Home() {
       <Effect />
       <HIW />
       <Pricing />
-      <FAQ />
       <Guides />
-      <main className="pt-24">
-      </main>
+      <FAQ />
+      <Footer />
     </div>
   );
 }

@@ -5,6 +5,15 @@
   --foreground: #171717;
   --thickglass-from: rgba(255, 255, 255, 0.9);
   --thickglass-to: rgba(255, 255, 255, 0.4);
+  --glass-from: rgba(255, 255, 255, 0.115);
+  --glass-to: rgba(255, 255, 255, 0.03);
+  --font-geist-sans: "Geist Sans", system-ui, sans-serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, monospace, monospace;
+  --text2: #8d8d95;
+  --shadow-inset-top: rgba(255, 255, 255, 0.2);
+  --border2: rgba(255, 255, 255, 0.174);
+  --thickglass-from: rgba(255, 255, 255, 0.9);
+  --thickglass-to: rgba(195, 195, 195, 0.7);
 }
 
 @theme inline {
