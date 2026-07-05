@@ -34,9 +34,9 @@ const legalLinks = [
 
 export default function Footer() {
     return (
-        <footer className="border-t border-white/10 bg-[#090909]" style={{ padding: "80px 120px" }}>
-            <div className="mx-auto flex max-w-[1600px] flex-wrap justify-between gap-16">
-                <div className="max-w-[520px] pr-30">
+        <footer className="border-t border-white/10 bg-[#090909] px-5 sm:px-10 lg:px-[120px] py-16 lg:py-20">
+            <div className="mx-auto grid max-w-[1600px] gap-10 lg:gap-16 lg:grid-cols-[1fr_auto_auto_auto_auto]">
+                <div className="max-w-[520px] lg:pr-30">
                     <Link href="/" className="inline-flex items-center">
                         <Image
                             src="/images/ditther_logo.png"
@@ -47,12 +47,12 @@ export default function Footer() {
                         />
                     </Link>
 
-                    <p className="mt-4 mb-6 text-[15px] line-clamp-2 text-white">
+                    <p className="mt-4 mb-6 text-[15px] text-white">
                         Free dither, halftone, ASCII and pixel effects tool.
                         Browser-based, no install needed.
                     </p>
 
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
 
                         <a
                             href="https://x.com/blurrhaus"
@@ -80,7 +80,8 @@ export default function Footer() {
 
                 </div>
 
-                {/* Columns */}
+                {/* Columns — wrap in a sub-grid so they go 2-col on mobile */}
+                <div className="grid grid-cols-2 gap-x-10 gap-y-6 lg:contents">
 
                 <FooterColumn title="Tool">
                     {toolLinks.map((item) => (
@@ -113,10 +114,11 @@ export default function Footer() {
                         </a>
                     ))}
                 </FooterColumn>
+                </div>
 
             </div>
-            <div className="border-t border-white/10">
-                <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-10 py-6 xl:px-20">
+            <div className="border-t border-white/10 mt-10">
+                <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-4 px-0 py-6">
 
                     <p className="text-[12px] text-white/35">
                         © 2026 Ditther · Made by{" "}
@@ -160,7 +162,7 @@ type Props = {
 
 function FooterColumn({ title, children }: Props) {
     return (
-        <div className="pb-20">
+        <div className="pb-6 lg:pb-20">
 
             <h4 className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white">
                 {title}

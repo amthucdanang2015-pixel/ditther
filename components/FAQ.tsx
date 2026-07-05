@@ -41,13 +41,13 @@ export default function FAQ() {
       id="faq"
       className="bg-[#0a0a0a]"
     >
-      <div className="mx-auto max-w-[1400px] px-25 pb-25">
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-10 lg:px-25 pb-16 lg:pb-25">
 
-        <div className="grid gap-28 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-12 lg:gap-28 lg:grid-cols-[0.9fr_1.1fr]">
 
           {/* LEFT */}
 
-          <div className="lg:top-32 h-fit">
+          <div className="lg:sticky lg:top-32 h-fit">
 
             <p className="mb-8 text-[12px] uppercase tracking-[0.22em] text-white/45">
               FAQ
