@@ -25,7 +25,7 @@ const proFeatures = [
 export default function Pricing() {
   return (
     <section id="pricing" className="bg-[#0d0d0f] py-32">
-      <div className="mx-auto max-w-[1200px] px-10">
+      <div className="mx-auto max-w-[1200px]">
         {/* Heading */}
         <div className="mb-20 max-w-3xl">
           <p className="mb-4 text-[11px] font-normal uppercase tracking-[0.1em] text-[#c8f542]">
@@ -92,11 +92,29 @@ function PricingCard({
   pro,
 }: PricingCardProps) {
   return (
-    <div className="flex min-h-[760px] flex-col rounded-[34px] border border-white/10 bg-gradient-to-b from-[#2a2a2c] to-[#1b1b1d] p-12 shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset]">
+    <div
+      style={{
+        background:
+          "linear-gradient(180deg, var(--glass-from) 0%, rgba(255,255,255,0.01) 100%)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+      }}
+      className="
+    flex
+    flex-col
+    px-10
+    py-12
+    rounded-[34px]
+    border
+    backdrop-blur-[var(--glass-blur)]
+    transition-[border-color,box-shadow]
+    duration-300
+    shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_var(--shadow-inset-top)]
+  "
+    >
+      {" "}
       <p className="mb-6 text-xs uppercase tracking-[0.25em] text-white/40">
         {badge}
       </p>
-
       <div className="mb-8 flex flex-wrap items-end gap-3">
         <span className="text-[48px] font-light leading-none">{price}</span>
 
@@ -106,17 +124,13 @@ function PricingCard({
               {oldPrice}
             </span>
 
-            <span className="pb-2 text-[14px] text-white/45">
-              {subtitle}
-            </span>
+            <span className="pb-2 text-[14px] text-white/45">{subtitle}</span>
           </>
         )}
       </div>
-
       <p className="mb-10 text-[14px] leading-6 text-[#8d8d95]">
         {description}
       </p>
-
       <ul className="space-y-1">
         {features.map((item) => (
           <li
@@ -124,26 +138,60 @@ function PricingCard({
             className="flex items-start gap-4 text-[14px] text-white/75"
           >
             <span
-              className={`mt-[11px] h-2 w-2 rounded-full ${
-                pro ? "bg-[#c8f542]" : "bg-white/20"
-              }`}
+              className={`mt-[11px] h-2 w-2 rounded-full ${pro ? "bg-[#c8f542]" : "bg-white/20"
+                }`}
             />
 
             <span>{item}</span>
           </li>
         ))}
       </ul>
-
       <div className="mt-auto pt-14">
-        <button
-          className={`w-full rounded-full py-5 text-lg font-medium transition-all duration-300 ${
-            pro
-              ? "bg-white text-black hover:brightness-95"
-              : "border border-white/10 bg-gradient-to-b from-[#3a3a3c] to-[#262628] text-white hover:bg-[#3a3a3c]"
-          }`}
+        {!pro && (<button
+          style={{
+            background:
+              !pro ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)" : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
+            boxShadow:
+              "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
+            borderColor: "rgba(255, 255, 255, 0.174)"
+          }}
+          className="
+            w-full
+            rounded-full
+            border
+            cursor-pointer
+            py-[13px] px-6
+            font-[14px]
+            text-[var(--text2)]
+            transition-all
+            duration-300
+            hover:text-white
+          "
         >
           {button}
-        </button>
+        </button>) || <button
+          style={{
+            background:
+              !pro ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)" : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
+            boxShadow:
+              "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
+            borderColor: "rgba(255, 255, 255, 0.174)"
+          }}
+          className="
+            w-full
+            rounded-full
+            border
+            cursor-pointer
+            py-[13px] px-6
+            font-[14px]
+            text-[#0d0d0f]
+            transition-all
+            duration-300
+          "
+        >
+            {button}
+          </button>}
+
       </div>
     </div>
   );

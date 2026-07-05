@@ -17,11 +17,10 @@ export default function GalleryControls({
         <button
           key={index}
           onClick={() => onChange(index)}
-          className={`rounded-full px-3 py-1 text-xs transition ${
-            current === index
-              ? "bg-white text-black"
-              : "bg-white/10 text-white hover:bg-white/20"
-          }`}
+          className={`rounded-full px-3 py-1 text-xs transition cursor-pointer ${current === index
+            ? "bg-white text-black"
+            : "bg-white/10 text-white hover:bg-white/20"
+            }`}
         >
           {imageCount[index]}
         </button>

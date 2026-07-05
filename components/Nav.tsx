@@ -26,7 +26,7 @@ export default function Nav() {
 
     if (!element) return;
 
-    const headerHeight = 80; // Navbar height
+    const headerHeight = 60; // Navbar height
     const target =
       element.getBoundingClientRect().top + window.scrollY - headerHeight;
 
@@ -59,43 +59,59 @@ export default function Nav() {
 
   return (
     <motion.header
-      initial={{ y: -40, opacity: 0 }}
+      initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-black/95 backdrop-blur-xl border-b border-white/5"
-          : "bg-transparent"
-      }`}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        padding: "14px 120px",
+        boxShadow: "0 1px 0 rgba(255,255,255,0.1), 0 4px 24px rgba(0,0,0,0.4)",
+      }}
+      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between bg-[rgba(13,13,15,0.55)] backdrop-blur-[12px]"
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
-        <a href="/home" className="text-2xl font-bold text-white">
-          <Image
-            src="/images/ditther_logo.png"
-            alt="Logo"
-            width={99}
-            height={24}
-          />
-        </a>
+      <a
+        href="/"
+        className="flex items-center gap-1.5 text-white no-underline select-none"
+        style={{ letterSpacing: "-0.03em" }}
+      >
+        <Image
+          src="/images/ditther_logo.png"
+          alt="Ditther"
+          width={99}
+          height={24}
+          className="h-6 w-auto"
+          style={{ mixBlendMode: "lighten" }}
+        />
+      </a>
 
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-10">
-          {sections.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className="text-sm font-medium text-white/75 transition hover:text-white"
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
+      {/* Desktop Menu */}
+      <nav className="hidden md:flex items-center gap-7">
+        {sections.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => scrollToSection(item.id)}
+            className="text-sm text-[#8d8d95] transition-colors duration-200 hover:text-white cursor-pointer bg-transparent border-none"
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
 
-        {/* CTA */}
-        <button className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-105">
-          Get Started
-        </button>
-      </div>
+      {/* CTA */}
+      <button
+        className="rounded-full text-[13px] font-normal text-white cursor-pointer transition-all duration-200 hover:opacity-90"
+        style={{
+          padding: "7px 18px",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.115) 0%, rgba(255,255,255,0.03) 80%)",
+          border: "1px solid rgba(255,255,255,0.174)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.272), inset 0 -1px 0 rgba(0,0,0,0.407), 0 4px 12px rgba(0,0,0,0.4)",
+        }}
+      >
+        Open app →
+      </button>
     </motion.header>
   );
 }

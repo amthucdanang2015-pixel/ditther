@@ -39,28 +39,26 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="bg-[#0a0a0a] py-36"
+      className="bg-[#0a0a0a]"
     >
-      <div className="mx-auto max-w-[1400px] px-10">
+      <div className="mx-auto max-w-[1400px] px-25 pb-25">
 
         <div className="grid gap-28 lg:grid-cols-[0.9fr_1.1fr]">
 
           {/* LEFT */}
 
-          <div className="lg:sticky lg:top-32 h-fit">
+          <div className="lg:top-32 h-fit">
 
-            <p className="mb-10 text-[12px] uppercase tracking-[0.22em] text-white/45">
+            <p className="mb-8 text-[12px] uppercase tracking-[0.22em] text-white/45">
               FAQ
             </p>
-
-            <h2 className="mb-8 text-[clamp(28px,3vw,40px)] font-light  tracking-[-0.04em]">
+            <h2 className="mb-5 text-[clamp(28px,3vw,40px)] font-light  tracking-[-0.04em]">
               Questions people actually ask
             </h2>
-
             <p className="mb-14 max-w-[470px] text-[14px] text-[#8d8d95]">
               If something isn&apos;t answered here, reach out on X at{" "}
               <a
-                href="https://x.com/blurrhaus"
+                href=""
                 target="_blank"
                 className="underline underline-offset-4 text-white/70 hover:text-white"
               >
@@ -69,8 +67,8 @@ export default function FAQ() {
               .
             </p>
 
-           <button
-  className="
+            <button
+              className="
     inline-flex
     cursor-pointer
     rounded-2xl
@@ -89,9 +87,9 @@ export default function FAQ() {
     hover:scale-[1.02]
     active:scale-[0.98]
   "
->
-  Try Ditther free →
-</button>
+            >
+              Try Ditther free →
+            </button>
 
           </div>
 
@@ -102,7 +100,7 @@ export default function FAQ() {
             {faqs.map((item) => (
               <div
                 key={item.q}
-                className="border-t border-white/10 py-10"
+                className="border-t border-white/10 py-6"
               >
                 <h3 className="mb-5 text-[15px] font-light tracking-[-0.02em]">
                   {item.q}
