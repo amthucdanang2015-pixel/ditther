@@ -8,7 +8,7 @@ import FAQ from "@/components/FAQ";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#111111] text-white">
+    <div className="min-h-screen bg-[#0d0d0f] text-white">
       <Nav />
       <Gallery />
       <Effect />
