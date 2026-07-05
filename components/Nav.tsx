@@ -22,9 +22,10 @@ export default function Nav() {
   });
 
   const openApp = () => {
-    const domain = process.env.NEXT_PUBLIC_DOMAIN; // example.com
-    window.open(`http://app.${domain}`, "_blank", "noopener noreferrer");
-  }
+    const protocol = window.location.protocol;
+    const host = window.location.host;
+    window.open(`${protocol}//app.${host}`, "_blank", "noopener noreferrer");
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
