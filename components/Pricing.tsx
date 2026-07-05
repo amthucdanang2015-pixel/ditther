@@ -24,7 +24,7 @@ const proFeatures = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="bg-[#0a0a0a] py-32">
+    <section id="pricing" className="bg-[#0d0d0f] py-32">
       <div className="mx-auto max-w-[1200px] px-10">
         {/* Heading */}
         <div className="mb-20 max-w-3xl">

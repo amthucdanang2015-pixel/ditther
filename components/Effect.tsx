@@ -16,7 +16,7 @@ const strips = [
 
 export default function Effect() {
   return (
-    <section id="effects" className="bg-[#0a0a0a] py-32">
+    <section id="effects" className="bg-[#0d0d0f] py-32">
       <div className="mx-auto max-w-[1200px] px-10">
         <div className="mb-20 max-w-3xl">
           <p className="text-[11px] tracking-[0.1em] text-[#c8f542] uppercase mb-4 font-normal">
@@ -48,7 +48,7 @@ export default function Effect() {
                       duration: 0.6,
                       delay: (row * 2 + index) * 0.08,
                     }}
-                    className="group overflow-hidden rounded-[32px] bg-[#141414]"
+                    className="group overflow-hidden rounded-[32px] bg-[#0d0d0f]"
                   >
                     <div className="relative aspect-[16/9] overflow-hidden">
                       <Image
