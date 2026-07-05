@@ -16,7 +16,7 @@ const strips = [
 
 export default function Effect() {
   return (
-    <section id="effects" className="bg-[#0d0d0f] py-32">
+    <section id="effects" className="bg-[#0d0d0f] py-32 max-[800px]:px-[20px]">
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-20 max-w-3xl">
           <p className="text-[11px] tracking-[0.1em] text-[#c8f542] uppercase mb-4 font-normal">

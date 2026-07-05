@@ -24,9 +24,8 @@ const proFeatures = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="bg-[#0d0d0f] py-32">
+    <section id="pricing" className="bg-[#0d0d0f] py-32 max-[800px]:px-[20px]">
       <div className="mx-auto max-w-[1200px]">
-        {/* Heading */}
         <div className="mb-20 max-w-3xl">
           <p className="mb-4 text-[11px] font-normal uppercase tracking-[0.1em] text-[#c8f542]">
             Pricing
@@ -43,8 +42,7 @@ export default function Pricing() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* FREE */}
+        <div className="grid gap-6 lg:grid-cols-2">
           <PricingCard
             badge="Free"
             price="$0"
@@ -111,38 +109,36 @@ function PricingCard({
     shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_var(--shadow-inset-top)]
   "
     >
-      {" "}
-      <p className="mb-6 text-xs uppercase tracking-[0.25em] text-white/40">
+      <p className="mb-6 text-[12px] uppercase tracking-[0.1em] text-white/40">
         {badge}
       </p>
-      <div className="mb-8 flex flex-wrap items-end gap-3">
+      <div className="mb-4 flex flex-wrap items-end gap-3">
         <span className="text-[48px] font-light leading-none">{price}</span>
 
         {oldPrice && (
           <>
-            <span className="pb-2 text-3xl text-white/35 line-through">
+            <span className=" text-3xl text-white/35 line-through">
               {oldPrice}
             </span>
 
-            <span className="pb-2 text-[14px] text-white/45">{subtitle}</span>
+            <span className=" text-[14px] text-white/45">{subtitle}</span>
           </>
         )}
       </div>
-      <p className="mb-10 text-[14px] leading-6 text-[#8d8d95]">
+      <p className="mb-9 text-[14px] leading-6 text-[#8d8d95]">
         {description}
       </p>
       <ul className="space-y-1">
         {features.map((item) => (
           <li
             key={item}
-            className="flex items-start gap-4 text-[14px] text-white/75"
+            className="flex items-center gap-4 mt-3 text-[14px]"
           >
             <span
-              className={`mt-[11px] h-2 w-2 rounded-full ${pro ? "bg-[#c8f542]" : "bg-white/20"
+              className={`h-1.5 w-1.5 rounded-full ${pro ? "bg-[#c8f542]" : "bg-white/20"
                 }`}
             />
-
-            <span>{item}</span>
+            <span className={`${pro ? "text-[#ffffff]" : "text-[#8d8d95]"}`}>{item}</span>
           </li>
         ))}
       </ul>

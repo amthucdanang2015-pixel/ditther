@@ -63,11 +63,9 @@ export default function Nav() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        padding: "14px 120px",
         boxShadow: "0 1px 0 rgba(255,255,255,0.1), 0 4px 24px rgba(0,0,0,0.4)",
       }}
-      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between bg-[rgba(13,13,15,0.55)] backdrop-blur-[12px]"
-    >
+      className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between bg-[var(--bg)] backdrop-blur-[12px] px-[120px] py-[14px] max-[800px]:px-[20px]">
       <a
         href="/"
         className="flex items-center gap-1.5 text-white no-underline select-none"
