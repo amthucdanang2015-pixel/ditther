@@ -37,22 +37,16 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section
-      id="faq"
-      className="bg-[#0a0a0a]"
-    >
+    <section id="faq" className="bg-[#0a0a0a]">
       <div className="mx-auto max-w-[1400px] px-5 sm:px-10 lg:px-25 pb-16 lg:pb-25">
-
         <div className="grid gap-12 lg:gap-28 lg:grid-cols-[0.9fr_1.1fr]">
-
           {/* LEFT */}
 
           <div className="lg:sticky lg:top-32 h-fit">
-
             <p className="mb-8 text-[12px] uppercase tracking-[0.22em] text-white/45">
               FAQ
             </p>
-            <h2 className="mb-5 text-[clamp(28px,3vw,40px)] font-light  tracking-[-0.04em]">
+            <h2 className="mb-5 text-[clamp(28px,3vw,40px)] font-light tracking-[-0.04em]">
               Questions people actually ask
             </h2>
             <p className="mb-14 max-w-[470px] text-[14px] text-[#8d8d95]">
@@ -67,41 +61,16 @@ export default function FAQ() {
               .
             </p>
 
-            <button
-              className="
-    inline-flex
-    cursor-pointer
-    rounded-2xl
-    border
-    border-white/50
-    bg-[linear-gradient(180deg,var(--thickglass-from)_0%,var(--thickglass-to)_80%)]
-    px-7
-    py-3
-    text-[14px]
-    font-medium
-    text-[#0d0d0f]
-    tracking-[-0.01em]
-    transition-all
-    duration-200
-    shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-1px_0_rgba(0,0,0,0.15),0_12px_20px_rgba(0,0,0,0.2)]
-    hover:scale-[1.02]
-    active:scale-[0.98]
-  "
-            >
+            <button className="inline-flex cursor-pointer rounded-2xl border border-white/50 bg-[linear-gradient(180deg,var(--thickglass-from)_0%,var(--thickglass-to)_80%)] px-7 py-3 text-[14px] font-medium text-[#0d0d0f] tracking-[-0.01em] transition-all duration-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),inset_0_-1px_0_rgba(0,0,0,0.15),0_12px_20px_rgba(0,0,0,0.2)] hover:scale-[1.02] active:scale-[0.98]">
               Try Ditther free →
             </button>
-
           </div>
 
           {/* RIGHT */}
 
           <div>
-
             {faqs.map((item) => (
-              <div
-                key={item.q}
-                className="border-t border-white/10 py-6"
-              >
+              <div key={item.q} className="border-t border-white/10 py-6">
                 <h3 className="mb-5 text-[15px] font-light tracking-[-0.02em]">
                   {item.q}
                 </h3>
@@ -111,11 +80,8 @@ export default function FAQ() {
                 </p>
               </div>
             ))}
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

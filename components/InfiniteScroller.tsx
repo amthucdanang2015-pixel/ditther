@@ -18,7 +18,6 @@ const items = [...images, ...images];
 export default function InfiniteScroller() {
   return (
     <div className="relative mt-32 overflow-hidden">
-
       {/* Left fade */}
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-40 bg-gradient-to-r from-[#151515] to-transparent" />
 
@@ -31,12 +30,7 @@ export default function InfiniteScroller() {
             key={index}
             className="relative h-[240px] w-[420px] flex-shrink-0 overflow-hidden rounded-[28px]"
           >
-            <Image
-              src={src}
-              alt=""
-              fill
-              className="object-cover"
-            />
+            <Image src={src} alt="" fill className="object-cover" />
           </div>
         ))}
       </div>

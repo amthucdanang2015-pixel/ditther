@@ -96,18 +96,7 @@ function PricingCard({
           "linear-gradient(180deg, var(--glass-from) 0%, rgba(255,255,255,0.01) 100%)",
         borderColor: "rgba(255, 255, 255, 0.1)",
       }}
-      className="
-    flex
-    flex-col
-    px-10
-    py-12
-    rounded-[34px]
-    border
-    backdrop-blur-[var(--glass-blur)]
-    transition-[border-color,box-shadow]
-    duration-300
-    shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_var(--shadow-inset-top)]
-  "
+      className="flex flex-col px-10 py-12 rounded-[34px] border backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow] duration-300 shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_var(--shadow-inset-top)]"
     >
       <p className="mb-6 text-[12px] uppercase tracking-[0.1em] text-white/40">
         {badge}
@@ -117,77 +106,57 @@ function PricingCard({
 
         {oldPrice && (
           <>
-            <span className=" text-3xl text-white/35 line-through">
+            <span className="text-3xl text-white/35 line-through">
               {oldPrice}
             </span>
 
-            <span className=" text-[14px] text-white/45">{subtitle}</span>
+            <span className="text-[14px] text-white/45">{subtitle}</span>
           </>
         )}
       </div>
-      <p className="mb-9 text-[14px] leading-6 text-[#8d8d95]">
-        {description}
-      </p>
+      <p className="mb-9 text-[14px] leading-6 text-[#8d8d95]">{description}</p>
       <ul className="space-y-1">
         {features.map((item) => (
-          <li
-            key={item}
-            className="flex items-center gap-4 mt-3 text-[14px]"
-          >
+          <li key={item} className="flex items-center gap-4 mt-3 text-[14px]">
             <span
-              className={`h-1.5 w-1.5 rounded-full ${pro ? "bg-[#c8f542]" : "bg-white/20"
-                }`}
+              className={`h-1.5 w-1.5 rounded-full ${pro ? "bg-[#c8f542]" : "bg-white/20"}`}
             />
-            <span className={`${pro ? "text-[#ffffff]" : "text-[#8d8d95]"}`}>{item}</span>
+            <span className={`${pro ? "text-[#ffffff]" : "text-[#8d8d95]"}`}>
+              {item}
+            </span>
           </li>
         ))}
       </ul>
       <div className="mt-auto pt-14">
-        {!pro && (<button
-          style={{
-            background:
-              !pro ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)" : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
-            boxShadow:
-              "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
-            borderColor: "rgba(255, 255, 255, 0.174)"
-          }}
-          className="
-            w-full
-            rounded-full
-            border
-            cursor-pointer
-            py-[13px] px-6
-            font-[14px]
-            text-[var(--text2)]
-            transition-all
-            duration-300
-            hover:text-white
-          "
-        >
-          {button}
-        </button>) || <button
-          style={{
-            background:
-              !pro ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)" : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
-            boxShadow:
-              "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
-            borderColor: "rgba(255, 255, 255, 0.174)"
-          }}
-          className="
-            w-full
-            rounded-full
-            border
-            cursor-pointer
-            py-[13px] px-6
-            font-[14px]
-            text-[#0d0d0f]
-            transition-all
-            duration-300
-          "
-        >
+        {(!pro && (
+          <button
+            style={{
+              background: !pro
+                ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)"
+                : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
+              boxShadow:
+                "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
+              borderColor: "rgba(255, 255, 255, 0.174)",
+            }}
+            className="w-full rounded-full border cursor-pointer py-[13px] px-6 font-[14px] text-[var(--text2)] transition-all duration-300 hover:text-white"
+          >
             {button}
-          </button>}
-
+          </button>
+        )) || (
+          <button
+            style={{
+              background: !pro
+                ? "linear-gradient(180deg, var(--glass-from) 0%, var(--glass-to) 80%)"
+                : "linear-gradient(180deg, var(--thickglass-from) 0%, var(--thickglass-to) 80%)",
+              boxShadow:
+                "inset 0 1px 0 var(--shadow-inset-top), 0 4px 16px rgba(0,0,0,.2)",
+              borderColor: "rgba(255, 255, 255, 0.174)",
+            }}
+            className="w-full rounded-full border cursor-pointer py-[13px] px-6 font-[14px] text-[#0d0d0f] transition-all duration-300"
+          >
+            {button}
+          </button>
+        )}
       </div>
     </div>
   );

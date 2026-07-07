@@ -19,7 +19,10 @@ export default function Gallery() {
   console.log("Current image index:", current);
 
   return (
-    <section className="relative h-[88vh] overflow-hidden bg-black" id="gallery">
+    <section
+      className="relative h-[88vh] overflow-hidden bg-black"
+      id="gallery"
+    >
       <GalleryCanvas src={images[current]} />
       <div className="absolute bottom-8 right-8">
         <GalleryControls current={current} onChange={setCurrent} />
