@@ -14,6 +14,10 @@
   --border2: rgba(255, 255, 255, 0.174);
   --thickglass-from: rgba(255, 255, 255, 0.9);
   --thickglass-to: rgba(195, 195, 195, 0.7);
+  --glass-bg-hover-from: rgba(255, 255, 255, 0.18);
+  --glass-bg-hover-to: rgba(255, 255, 255, 0.06);
+  --border-secondary-color: rgba(255, 255, 255, 0.174);
+  --shadow-inset-bottom: rgba(255, 255, 255, 0.1);
 }
 
 @theme inline {
@@ -43,6 +47,15 @@ body {
 
 .marquee:hover {
   animation-play-state: paused;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes marquee {
