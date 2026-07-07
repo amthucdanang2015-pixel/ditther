@@ -24,7 +24,8 @@ export default function Nav() {
   const openApp = () => {
     const protocol = window.location.protocol;
     const host = window.location.host;
-    window.open(`${protocol}//app.${host}`, "_blank", "noopener noreferrer");
+    window.open(`${protocol}//${host}/app`, "_self", "noopener noreferrer");
+    // window.open(`${protocol}//app.${host}`, "_blank", "noopener noreferrer");
   };
 
   const scrollToSection = (id: string) => {
