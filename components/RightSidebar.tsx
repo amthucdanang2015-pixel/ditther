@@ -7,16 +7,6 @@ import Slider from "./Slider";
 import { useState } from "react";
 import EffectSlider from "./EffectSlider";
 
-// const effects = [
-//     "Dither",
-//     "ASCII",
-//     "Halftone",
-//     "Dots",
-//     "LEGO",
-//     "Voxel",
-//     "LED",
-//     "Lattice",
-// ];
 
 export default function RightSidebar() {
     const [effects, setEffects] = useState({
@@ -29,10 +19,13 @@ export default function RightSidebar() {
         blending: 50,
 
     });
+    const [enabled, setEnabled] = useState(true);
+    const [duotone, setDuotone] = useState(true);
+    const [animate, setAnimate] = useState(true);
 
     return (
-        <aside className="w-[320px] shrink-0 rounded-tl-[34px] bg-[#171719]">
-            <div className="no-scrollbar h-full overflow-y-auto px-6 py-6">
+        <aside className="w-[320px] shrink-0 rounded-tl-[34px] bg-[#171719] flex flex-col h-full overflow-hidden">
+            <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
 
                 {/* LOOKS */}
 
@@ -47,7 +40,7 @@ export default function RightSidebar() {
                         <Grid2x2 size={16} className="text-zinc-500" />
                     </div>
 
-                    <button className="flex items-center gap-2 text-zinc-400">
+                    <button className="flex items-center gap-2 text-zinc-400 cursor-pointer hover:text-[#fff]">
                         <Save size={16} />
                         Save
                     </button>
@@ -63,13 +56,38 @@ export default function RightSidebar() {
 
                 <div className="flex items-center justify-between">
 
-                    <h3 className="text-sm tracking-widest text-zinc-400">
+                    <h3 className="text-[10px] tracking-[0.08em] text-[#8d8d95]">
                         PIXEL EFFECTS
                     </h3>
-
-                    <button className="relative h-7 w-12 rounded-full bg-zinc-700">
-                        <div className="absolute right-1 top-1 h-5 w-5 rounded-full bg-white" />
-                    </button>
+                    <label className="flex cursor-pointer items-center">
+                        <input
+                            id="pixel-effects-toggle"
+                            type="checkbox"
+                            checked={enabled}
+                            onChange={(e) => setEnabled(e.target.checked)}
+                            className="sr-only"
+                        />
+                        <div
+                            className="
+                                    relative flex h-[18px] w-8 items-center rounded-full
+                                    border border-[var(--border-secondary-color)]
+                                    bg-[linear-gradient(180deg,var(--glass-from)_0%,var(--glass-to)_80%)]
+                                    p-[2px]
+                                    shadow-[inset_0_1px_0_var(--shadow-inset-top),inset_0_-1px_0_var(--shadow-inset-bottom)]
+                                    backdrop-blur-sm
+                                "
+                        >
+                            <div
+                                className={`absolute left-[2px] h-3 w-3 rounded-full
+        transition-all duration-[450ms]
+        ease-[cubic-bezier(0.34,1.56,0.64,1)]
+        ${enabled
+                                        ? "translate-x-4 bg-[var(--text-primary-color)] shadow-[0_1px_4px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top),0_0_0_4px_var(--bg-hover-color)]"
+                                        : "translate-x-0 bg-[var(--text2)] shadow-[0_1px_3px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top)]"
+                                    }`}
+                            ></div>
+                        </div>
+                    </label>
                 </div>
 
                 <div className="mt-5 flex flex-wrap gap-2">
@@ -132,7 +150,77 @@ export default function RightSidebar() {
                     />
                 </div>
 
+                <div className="flex items-center mt-4 justify-between">
 
+                    <h3 className="text-[10px] uppercase tracking-[0.08em] text-[#8d8d95]">
+                        Duotone
+                    </h3>
+                    <label className="flex cursor-pointer items-center">
+                        <input
+                            id="pixel-effects-toggle"
+                            type="checkbox"
+                            checked={duotone}
+                            onChange={(e) => setDuotone(e.target.checked)}
+                            className="sr-only"
+                        />
+                        <div
+                            className="
+                                    relative flex h-[18px] w-8 items-center rounded-full
+                                    border border-[var(--border-secondary-color)]
+                                    bg-[linear-gradient(180deg,var(--glass-from)_0%,var(--glass-to)_80%)]
+                                    p-[2px]
+                                    shadow-[inset_0_1px_0_var(--shadow-inset-top),inset_0_-1px_0_var(--shadow-inset-bottom)]
+                                    backdrop-blur-sm
+                                "
+                        >
+                            <div
+                                className={`absolute left-[2px] h-3 w-3 rounded-full
+        transition-all duration-[450ms]
+        ease-[cubic-bezier(0.34,1.56,0.64,1)]
+        ${duotone
+                                        ? "translate-x-4 bg-[var(--text-primary-color)] shadow-[0_1px_4px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top),0_0_0_4px_var(--bg-hover-color)]"
+                                        : "translate-x-0 bg-[var(--text2)] shadow-[0_1px_3px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top)]"
+                                    }`}
+                            ></div>
+                        </div>
+                    </label>
+                </div>
+
+                <div className="flex items-center mt-4 justify-between">
+
+                    <h3 className="text-[10px] uppercase tracking-[0.08em] text-[#8d8d95]">
+                        Animation
+                    </h3>
+                    <label className="flex cursor-pointer items-center">
+                        <input
+                            id="pixel-effects-toggle"
+                            type="checkbox"
+                            checked={animate}
+                            onChange={(e) => setAnimate(e.target.checked)}
+                            className="sr-only"
+                        />
+                        <div
+                            className="
+                                    relative flex h-[18px] w-8 items-center rounded-full
+                                    border border-[var(--border-secondary-color)]
+                                    bg-[linear-gradient(180deg,var(--glass-from)_0%,var(--glass-to)_80%)]
+                                    p-[2px]
+                                    shadow-[inset_0_1px_0_var(--shadow-inset-top),inset_0_-1px_0_var(--shadow-inset-bottom)]
+                                    backdrop-blur-sm
+                                "
+                        >
+                            <div
+                                className={`absolute left-[2px] h-3 w-3 rounded-full
+        transition-all duration-[450ms]
+        ease-[cubic-bezier(0.34,1.56,0.64,1)]
+        ${animate
+                                        ? "translate-x-4 bg-[var(--text-primary-color)] shadow-[0_1px_4px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top),0_0_0_4px_var(--bg-hover-color)]"
+                                        : "translate-x-0 bg-[var(--text2)] shadow-[0_1px_3px_var(--shadow-drop-sm),inset_0_1px_0_var(--shadow-inset-top)]"
+                                    }`}
+                            ></div>
+                        </div>
+                    </label>
+                </div>
                 {/* <div className="mt-10 space-y-4">
                     {Array.from({ length: 20 }).map((_, i) => (
                         <div

@@ -30,7 +30,7 @@ export default function InfiniteScroller() {
             key={index}
             className="relative h-[240px] w-[420px] flex-shrink-0 overflow-hidden rounded-[28px]"
           >
-            <Image src={src} alt="" fill className="object-cover" />
+            <Image src={src} alt="" fill sizes={"100%"} className="object-cover" />
           </div>
         ))}
       </div>

@@ -72,11 +72,11 @@ export default function Editor() {
     ]);
 
     return (
-        <div className="h-screen overflow-hidden bg-[#101011] text-white">
+        <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
             <AppNavbar />
 
-            <div className="flex h-[calc(100vh-56px)] pt-14">
-                <aside className="w-[340px] bg-[#1b1b1d] rounded-tr-3xl flex flex-col border-r border-white/5">
+            <div className="flex flex-1 pt-[60px] overflow-hidden">
+                <aside className="w-[340px] bg-[#1b1b1d] rounded-tr-3xl flex flex-col border-r border-white/5 h-full">
                     <div className="border-b border-white/10 p-6">
                         <span className="mb-5 block text-[11px] uppercase tracking-[0.08em] text-zinc-500">
                             Backgrounds
@@ -87,7 +87,7 @@ export default function Editor() {
                                 <button
                                     key={src}
                                     onClick={() => setSelectedBg(src)}
-                                    className={`relative aspect-square overflow-hidden rounded-xl transition-all duration-200 hover:scale-[0.96]`}
+                                    className={`relative aspect-square overflow-hidden rounded-xl transition-all duration-200 hover:scale-[0.96] cursor-pointer`}
                                 >
                                     <Image
                                         src={src}
@@ -106,6 +106,7 @@ export default function Editor() {
                                     src="/images/strip_9.jpg"
                                     alt=""
                                     fill
+                                    sizes="64px"
                                     className="object-cover opacity-40"
                                 />
 
@@ -140,7 +141,7 @@ export default function Editor() {
                             {presets.map((preset) => (
                                 <button
                                     key={preset}
-                                    className="rounded-full bg-[#2b2b2f] px-5 py-2.5 text-[14px] text-zinc-300 hover:bg-[#34343a] transition"
+                                    className="rounded-full cursor-pointer bg-[#2b2b2f] px-2 py-1 text-[11px] text-[#8d8d95] hover:bg-[#34343a] transition"
                                 >
                                     {preset}
                                 </button>
@@ -149,13 +150,11 @@ export default function Editor() {
 
                         {/* GROUPS */}
 
-                        <div className="space-y-8">
+                        <div className="space-y-2">
                             {filterGroups.map((group, groupIndex) => (
                                 <div key={group.title}>
-
-                                    {/* Header */}
-                                    <div className="mb-5 flex items-center justify-between">
-                                        <h3 className="text-[12px] uppercase tracking-[0.15em] text-zinc-500">
+                                    <div className="mb-2 flex items-center justify-between">
+                                        <h3 className="text-[10px] uppercase tracking-[0.15em] text-[#4e4e53]">
                                             {group.title}
                                         </h3>
 
@@ -163,7 +162,7 @@ export default function Editor() {
                                     </div>
 
                                     {/* Sliders */}
-                                    <div className="space-y-4">
+                                    <div className="space-y-2">
 
                                         {group.filters.map((filter, filterIndex) => (
 
@@ -209,7 +208,7 @@ export default function Editor() {
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
-                                <Image src={selectedBg} alt="" fill className="object-cover" />
+                                <Image src={selectedBg} alt="" fill sizes={"70vw"} className="object-cover" />
                             </div>
                         </div>
                     </div>

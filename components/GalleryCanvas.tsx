@@ -32,7 +32,7 @@ export default function GalleryCanvas({ src }: Props) {
           },
         }}
       >
-        <Image src={src} alt="" fill priority className="object-cover" />
+        <Image src={src} sizes={"100%"} alt="" fill priority className="object-cover" />
       </motion.div>
     </AnimatePresence>
   );

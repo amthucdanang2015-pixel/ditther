@@ -18,7 +18,7 @@ export default function EffectSlider({
     onChange,
 }: Props) {
     return (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full flex overflow-hidden">
             <span className="absolute left-6 top-1/2 z-10 -translate-y-1/2 text-[12px] font-medium text-zinc-200 pointer-events-none">
                 {label}
             </span>

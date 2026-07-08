@@ -20,11 +20,13 @@ export default function LooksGrid() {
             {looks.map((img, index) => (
                 <button
                     key={img}
-                    className="relative aspect-[1.2] overflow-hidden rounded-2xl group"
+                    className="relative aspect-[1.2] overflow-hidden rounded-2xl group cursor-pointer"
                 >
                     <Image
+                        loading="eager"
                         src={`/images/${img}`}
                         fill
+                        sizes="33vw"
                         alt=""
                         className="object-cover transition duration-300 group-hover:scale-105"
                     />
@@ -32,7 +34,7 @@ export default function LooksGrid() {
             ))}
 
             <button className="relative aspect-[1.2] overflow-hidden rounded-2xl bg-zinc-900">
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/50">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/50 cursor-pointer">
                     <Grid2x2 size={20} />
                     View all
                 </div>
