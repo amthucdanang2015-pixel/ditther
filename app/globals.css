@@ -58,6 +58,41 @@ body {
   display: none;
 }
 
+.ditther-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  border-radius: 12px;
+  outline: none;
+
+  background:
+    linear-gradient(to right,
+      #3a3a3d 0%,
+      #3a3a3d var(--fill),
+      #242427 var(--fill),
+      #242427 100%);
+
+  cursor: pointer;
+}
+
+.ditther-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+
+  width: 2px;
+  height: 42px;
+
+  background: transparent;
+
+  border: none;
+}
+
+.ditther-slider::-moz-range-thumb {
+  width: 2px;
+  height: 42px;
+  background: transparent;
+  border: none;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
