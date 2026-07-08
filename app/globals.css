@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --thickglass-from: rgba(255, 255, 255, 0.9);
   --thickglass-to: rgba(255, 255, 255, 0.4);
   --glass-from: rgba(255, 255, 255, 0.115);
@@ -18,6 +18,9 @@
   --glass-bg-hover-to: rgba(255, 255, 255, 0.06);
   --border-secondary-color: rgba(255, 255, 255, 0.174);
   --shadow-inset-bottom: rgba(255, 255, 255, 0.1);
+  --text-primary-color: #ffffff;
+  --shadow-drop-sm: rgba(0, 0, 0, 0.233);
+  --bg-hover-color: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -62,7 +65,8 @@ body {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  border-radius: 12px;
+  height: 28px;
+  border-radius: 8px;
   outline: none;
 
   background:
@@ -79,7 +83,7 @@ body {
   -webkit-appearance: none;
 
   width: 2px;
-  height: 42px;
+  height: 28px;
 
   background: transparent;
 
@@ -101,4 +105,24 @@ body {
   to {
     transform: translateX(calc(-50% - 12px));
   }
+}
+
+.effect-sliders-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter-lg);
+  margin-top: 8px;
+}
+
+.effect-slider-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all var(--transition-md);
+}
+
+.effect-slider-row .slider-label {
+  font-size: var(--font-size-xsm);
+  color: var(--text-accent-color);
 }
