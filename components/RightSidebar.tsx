@@ -24,7 +24,7 @@ export default function RightSidebar() {
     const [animate, setAnimate] = useState(true);
 
     return (
-        <aside className="w-[320px] shrink-0 rounded-tl-[34px] bg-[#171719] flex flex-col h-full overflow-hidden">
+        <aside className="w-full md:w-[320px] shrink-0 rounded-t-[34px] md:rounded-tr-none md:rounded-tl-[34px] bg-[#171719] flex flex-col flex-1 md:flex-none md:h-full overflow-hidden">
             <div className="no-scrollbar flex-1 overflow-y-auto px-6 py-6">
 
                 {/* LOOKS */}

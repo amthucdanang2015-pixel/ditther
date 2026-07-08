@@ -16,7 +16,8 @@ import {
 
 export default function AppNavbar() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
       <div className="relative flex h-full items-center justify-between px-4">
         <div className="flex items-center gap-1">
           <div className="flex items-center gap-1 cursor-pointer">
@@ -41,7 +42,7 @@ export default function AppNavbar() {
 
         {/* ================= Center ================= */}
 
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4 cursor-pointer">
+        <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-4 cursor-pointer">
           <NavButton icon={<RotateCcw size={15} />} label="Reset" />
 
           <NavButton icon={<Sparkles size={15} />} label="Backgrounds" />
@@ -58,7 +59,7 @@ export default function AppNavbar() {
         {/* ================= Right ================= */}
 
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-1 rounded-full px-3 py-2 text-[12px] text-white/65 hover:text-[#9ad013] cursor-pointer transition">
+          <button className="hidden md:flex items-center gap-1 rounded-full px-3 py-2 text-[12px] text-white/65 hover:text-[#9ad013] cursor-pointer transition">
             <Sparkles size={15} />
             What's New
           </button>
@@ -73,7 +74,28 @@ export default function AppNavbar() {
           </button>
         </div>
       </div>
-    </header>
+      </header>
+
+      {/* Mobile Bottom Bar */}
+      <nav className="fixed inset-x-0 bottom-0 z-50 flex h-[70px] md:hidden items-center justify-around bg-[#0f0f10] border-t border-white/5 px-2 pb-2">
+        <MobileNavButton icon={<RotateCcw size={20} />} label="Reset" />
+        <MobileNavButton icon={<Sparkles size={20} />} label="Backgrounds" />
+        <button className="h-14 w-14 rounded-full border border-white/10 bg-[linear-gradient(180deg,#777_0%,#a5a5a5_100%)] hover:opacity-90 flex items-center justify-center transition shadow-lg -translate-y-2">
+          <Plus size={24} className="text-black" />
+        </button>
+        <MobileNavButton icon={<Omega size={20} />} label="Compare" />
+        <MobileNavButton icon={<Crop size={20} />} label="Crop" />
+      </nav>
+    </>
+  );
+}
+
+function MobileNavButton({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <button className="flex flex-col items-center gap-1 text-[10px] text-white/50 hover:text-white transition">
+      {icon}
+      {label}
+    </button>
   );
 }
 

@@ -75,8 +75,9 @@ export default function Editor() {
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
             <AppNavbar />
 
-            <div className="flex flex-1 pt-[60px] overflow-hidden">
-                <aside className="w-[340px] bg-[#1b1b1d] rounded-tr-3xl flex flex-col border-r border-white/5 h-full">
+            <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-hidden">
+                {/*Left-Side*/}
+                <aside className="hidden md:flex w-[340px] shrink-0 bg-[#1b1b1d] rounded-tr-3xl flex-col border-r border-white/5 h-full">
                     <div className="border-b border-white/10 p-6">
                         <span className="mb-5 block text-[11px] uppercase tracking-[0.08em] text-zinc-500">
                             Backgrounds
@@ -204,7 +205,7 @@ export default function Editor() {
                     </div>
                 </aside>
 
-                <main className="flex-1 flex flex-col bg-[#141415]">
+                <main className="flex-none h-[55vh] md:h-auto md:flex-1 flex flex-col bg-[#141415]">
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
