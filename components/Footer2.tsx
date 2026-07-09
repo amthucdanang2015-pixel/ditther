@@ -37,8 +37,8 @@ export default function Footer() {
             <Image
               src="/images/ditther_logo.png"
               alt="Ditther"
-              width={160}
-              height={45}
+              width={116}
+              height={28}
               className="w-auto"
             />
           </Link>
