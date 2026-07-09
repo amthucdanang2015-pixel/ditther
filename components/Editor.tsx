@@ -13,6 +13,8 @@ export default function Editor() {
     );
 
     const [selectedBg, setSelectedBg] = useState(backgrounds[0]);
+    const [selectedPreset, setSelectedPreset] = useState("Cinematic");
+
     const presets = [
         "Cinematic",
         "Golden Hour",
@@ -134,16 +136,22 @@ export default function Editor() {
                     <div className="flex-1 overflow-y-auto no-scrollbar px-6 pb-8">
                         {/* FILTERS */}
 
-                        <p className="mb-4 text-[11px] uppercase tracking-[0.08em] text-zinc-500">
+                        <p className="mb-2 mt-2 text-[11px] uppercase tracking-[0.08em] text-zinc-500">
                             Filters
                         </p>
 
-                        <div className="flex flex-wrap gap-2 mb-8">
+                        <div className="flex flex-wrap gap-2 mb-1">
                             {presets.map((preset) => (
                                 <button
                                     key={preset}
-                                    className="rounded-full cursor-pointer bg-[#2b2b2f] px-2 py-1 text-[11px] text-[#8d8d95] hover:bg-[#34343a] transition"
-                                >
+                                    onClick={() => { setSelectedPreset(preset) }}
+                                    className={`
+                                        rounded-full border px-3 py-1.5 text-[11px] leading-none cursor-pointer transition-all duration-200
+                                        ${selectedPreset === preset
+                                            ? "bg-gradient-to-b from-[#4b4b52] to-[#3a3a40] text-white border-white"
+                                            : "bg-[#2b2b2f] text-[#8d8d95] border-[#3a3a40] hover:bg-[#34343a]"
+                                        }
+    `}                                >
                                     {preset}
                                 </button>
                             ))}
@@ -154,7 +162,7 @@ export default function Editor() {
                         <div className="space-y-2">
                             {filterGroups.map((group, groupIndex) => (
                                 <div key={group.title}>
-                                    <div className="mb-2 flex items-center justify-between">
+                                    <div className="mb-1 flex items-center justify-between">
                                         <h3 className="text-[10px] uppercase tracking-[0.15em] text-[#4e4e53]">
                                             {group.title}
                                         </h3>
