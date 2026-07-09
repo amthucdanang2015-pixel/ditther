@@ -75,7 +75,7 @@ export default function Editor() {
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
             <AppNavbar />
 
-            <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-hidden">
+            <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
                 {/*Left-Side*/}
                 <aside className="hidden md:flex w-[340px] shrink-0 bg-[#1b1b1d] rounded-tr-3xl flex-col border-r border-white/5 h-full">
                     <div className="border-b border-white/10 p-6">
