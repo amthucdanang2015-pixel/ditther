@@ -30,10 +30,10 @@ const legalLinks = ["Privacy Policy", "Terms of Service", "Contact"];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#090909] px-5 sm:px-10 lg:px-[120px] py-16 lg:py-20">
+    <footer className="border-t border-white/10 bg-[#090909] px-5 sm:px-10 lg:px-[80px] py-16 lg:py-20">
       <div className="mx-auto grid max-w-[1600px] gap-10 lg:gap-16 lg:grid-cols-[1fr_auto_auto_auto_auto]">
         <div className="max-w-[520px] lg:pr-30">
-          <Link href="/" className="inline-flex items-center">
+          <Link href="/" className="inline-flex h-[28px] w-auto items-center">
             <Image
               src="/images/ditther_logo.png"
               alt="Ditther"
@@ -158,10 +158,10 @@ function FooterColumn({ title, children }: Props) {
       <div className="flex flex-col gap-3 text-[13px]">
         {Array.isArray(children)
           ? children.map((child, i) => (
-              <div key={i} className="text-white/30 transition">
-                {child}
-              </div>
-            ))
+            <div key={i} className="text-white/30 transition">
+              {child}
+            </div>
+          ))
           : children}
       </div>
     </div>
