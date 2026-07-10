@@ -150,7 +150,7 @@ export default function Editor() {
 
     };
     const handleReset = () => {
-        setSelectedBg(backgrounds[0]);
+        // setSelectedBg(backgrounds[0]);
         setSelectedPreset(null);
         setFilterGroups(defaultFilterGroups);
         setSelectedPixelEffect(null);
@@ -163,7 +163,11 @@ export default function Editor() {
             opacity: 100,
             blending: 50,
         });
-    }
+    };
+
+    const handleImageUpload = (url: string) => {
+        setSelectedBg(url);
+    };
     const cssFilter = filterGroups
         .flatMap(group => group.filters)
         .map(f => {
@@ -213,7 +217,7 @@ export default function Editor() {
 
     return (
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
-            <AppNavbar handleReset={handleReset} />
+            <AppNavbar handleReset={handleReset} onImageUpload={handleImageUpload} />
 
             <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
                 {/*Left-Side*/}

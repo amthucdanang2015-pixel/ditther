@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import Image from "next/image";
 import {
   RotateCcw,
@@ -15,10 +17,21 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function AppNavbar({ handleReset }: any) {
+export default function AppNavbar({ handleReset, onImageUpload }: { handleReset?: () => void; onImageUpload?: (url: string) => void }) {
   const resetBtn = () => {
-    handleReset();
-  }
+    handleReset?.();
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    onImageUpload?.(url);
+    // Reset input so re-selecting the same file triggers onChange again
+    e.target.value = "";
+  };
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
@@ -52,7 +65,18 @@ export default function AppNavbar({ handleReset }: any) {
 
             <NavButton icon={<Sparkles size={15} />} label="Backgrounds" onClick={() => { console.log("Background") }} />
 
-            <button className="h-8 w-8 rounded-full border border-white/15 bg-[#181818] hover:bg-[#222] cursor-pointer transition">
+            {/* Hidden file picker – images only */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="h-8 w-8 rounded-full border border-white/15 bg-[#181818] hover:bg-[#222] cursor-pointer transition">
               <Plus className="mx-auto" size={14} />
             </button>
 
@@ -85,7 +109,9 @@ export default function AppNavbar({ handleReset }: any) {
       <nav className="fixed inset-x-0 bottom-0 z-50 flex h-[70px] md:hidden items-center justify-around bg-[#0f0f10] border-t border-white/5 px-2 pb-2">
         <MobileNavButton icon={<RotateCcw size={20} />} label="Reset" />
         <MobileNavButton icon={<Sparkles size={20} />} label="Backgrounds" />
-        <button className="h-14 w-14 rounded-full border border-white/10 bg-[linear-gradient(180deg,#777_0%,#a5a5a5_100%)] hover:opacity-90 flex items-center justify-center transition shadow-lg -translate-y-2">
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="h-14 w-14 rounded-full border border-white/10 bg-[linear-gradient(180deg,#777_0%,#a5a5a5_100%)] hover:opacity-90 flex items-center justify-center transition shadow-lg -translate-y-2">
           <Plus size={24} className="text-black" />
         </button>
         <MobileNavButton icon={<Omega size={20} />} label="Compare" />
