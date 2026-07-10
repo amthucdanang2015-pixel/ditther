@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function AppNavbar() {
+export default function AppNavbar({ handleReset }: any) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
@@ -45,17 +45,17 @@ export default function AppNavbar() {
           {/* ================= Center ================= */}
 
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-4 cursor-pointer">
-            <NavButton icon={<RotateCcw size={15} />} label="Reset" />
+            <NavButton icon={<RotateCcw size={15} />} label="Reset" onClick={handleReset} />
 
-            <NavButton icon={<Sparkles size={15} />} label="Backgrounds" />
+            <NavButton icon={<Sparkles size={15} />} label="Backgrounds" onClick={() => { console.log("Background") }} />
 
             <button className="h-8 w-8 rounded-full border border-white/15 bg-[#181818] hover:bg-[#222] cursor-pointer transition">
               <Plus className="mx-auto" size={14} />
             </button>
 
-            <NavButton icon={<Omega size={15} />} label="Compare" />
+            <NavButton icon={<Omega size={15} />} label="Compare" onClick={() => { console.log("Compare") }} />
 
-            <NavButton icon={<Crop size={15} />} label="Crop" />
+            <NavButton icon={<Crop size={15} />} label="Crop" onClick={() => { console.log("Crop") }} />
           </div>
 
           {/* ================= Right ================= */}
@@ -101,9 +101,11 @@ function MobileNavButton({ icon, label }: { icon: React.ReactNode; label: string
   );
 }
 
-function NavButton({ icon, label }: { icon: React.ReactNode; label: string }) {
+function NavButton({ icon, label, onClick }: { icon: React.ReactNode; label: string, onClick: () => void }) {
   return (
-    <button className="flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] text-white/85 cursor-pointer transition border border-transparent hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]">
+    <button
+      className="flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] text-white/85 cursor-pointer transition border border-transparent hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+      onClick={onClick}>
       {icon}
       {label}
     </button>

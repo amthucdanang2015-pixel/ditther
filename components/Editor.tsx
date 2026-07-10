@@ -13,7 +13,7 @@ export default function Editor() {
     );
 
     const [selectedBg, setSelectedBg] = useState(backgrounds[0]);
-    const [selectedPreset, setSelectedPreset] = useState("Cinematic");
+    const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
 
     const presets = [
         "Cinematic",
@@ -47,7 +47,36 @@ export default function Editor() {
             "contrast(1.4) saturate(2) hue-rotate(15deg)",
     };
 
-    const [filterGroups, setFilterGroups] = useState([
+    // const [filterGroups, setFilterGroups] = useState([
+    //     {
+    //         title: "Tone",
+    //         filters: [
+    //             { key: "brightness", name: "Brightness", value: 100, max: 200, suffix: "%" },
+    //             { key: "contrast", name: "Contrast", value: 100, max: 200, suffix: "%" },
+    //             { key: "saturate", name: "Saturate", value: 100, max: 300, suffix: "%" },
+    //             { key: "hue", name: "Hue", value: 0, max: 360, suffix: "deg" },
+    //         ],
+    //     },
+
+    //     {
+    //         title: "Color",
+    //         filters: [
+    //             { key: "grayscale", name: "Grayscale", value: 0, max: 100, suffix: "%" },
+    //             { key: "sepia", name: "Sepia", value: 0, max: 100, suffix: "%" },
+    //             { key: "invert", name: "Invert", value: 0, max: 100, suffix: "%" },
+    //         ],
+    //     },
+
+    //     {
+    //         title: "Lens",
+    //         filters: [
+    //             { key: "blur", name: "Blur", value: 0, max: 20, suffix: "px" },
+    //             { key: "opacity", name: "Opacity", value: 100, max: 100, suffix: "%" },
+    //         ],
+    //     }
+    // ]);
+
+    const defaultFilterGroups = [
         {
             title: "Tone",
             filters: [
@@ -57,7 +86,6 @@ export default function Editor() {
                 { key: "hue", name: "Hue", value: 0, max: 360, suffix: "deg" },
             ],
         },
-
         {
             title: "Color",
             filters: [
@@ -66,15 +94,16 @@ export default function Editor() {
                 { key: "invert", name: "Invert", value: 0, max: 100, suffix: "%" },
             ],
         },
-
         {
             title: "Lens",
             filters: [
                 { key: "blur", name: "Blur", value: 0, max: 20, suffix: "px" },
                 { key: "opacity", name: "Opacity", value: 100, max: 100, suffix: "%" },
             ],
-        }
-    ]);
+        },
+    ];
+
+    const [filterGroups, setFilterGroups] = useState(defaultFilterGroups);
 
     const updateFilter = (
         groupTitle: string,
@@ -98,7 +127,11 @@ export default function Editor() {
         );
 
     };
-
+    const handleReset = () => {
+        setSelectedBg(backgrounds[0]);
+        setSelectedPreset(null);
+        setFilterGroups(defaultFilterGroups);
+    }
     const cssFilter = filterGroups
         .flatMap(group => group.filters)
         .map(f => {
@@ -139,11 +172,11 @@ export default function Editor() {
         })
         .join(" ");
 
-    const presetFilter = presetStyles[selectedPreset] ?? "";
+    const presetFilter = selectedPreset ? presetStyles[selectedPreset] : "";
 
     return (
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
-            <AppNavbar />
+            <AppNavbar handleReset={handleReset} />
 
             <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
                 {/*Left-Side*/}
