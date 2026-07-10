@@ -6,6 +6,8 @@ import AppNavbar from "./AppNavbar";
 import RightSidebar from "./RightSidebar";
 import EffectSlider from "./EffectSlider";
 import PixelCanvas from "./PixelCanvas";
+import CompareSlider from "./CompareSlider";
+import CropOverlay from "./CropOverlay";
 
 export default function Editor() {
     const backgrounds = Array.from(
@@ -16,6 +18,8 @@ export default function Editor() {
     const [selectedBg, setSelectedBg] = useState(backgrounds[0]);
     const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
     const [selectedPixelEffect, setSelectedPixelEffect] = useState<string | null>(null);
+    const [compareMode, setCompareMode] = useState(false);
+    const [cropMode, setCropMode] = useState(false);
     const [pixelEffectSettings, setPixelEffectSettings] = useState({
         size: 70,
         fill: 100,
@@ -152,6 +156,7 @@ export default function Editor() {
     const handleReset = () => {
         // setSelectedBg(backgrounds[0]);
         setSelectedPreset(null);
+        setCompareMode(false);
         setFilterGroups(defaultFilterGroups);
         setSelectedPixelEffect(null);
         setPixelEffectSettings({
@@ -167,6 +172,11 @@ export default function Editor() {
 
     const handleImageUpload = (url: string) => {
         setSelectedBg(url);
+    };
+
+    const handleCropApply = (croppedUrl: string) => {
+        setSelectedBg(croppedUrl);
+        setCropMode(false);
     };
     const cssFilter = filterGroups
         .flatMap(group => group.filters)
@@ -217,7 +227,14 @@ export default function Editor() {
 
     return (
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
-            <AppNavbar handleReset={handleReset} onImageUpload={handleImageUpload} />
+            <AppNavbar
+                handleReset={handleReset}
+                onImageUpload={handleImageUpload}
+                compareMode={compareMode}
+                onCompare={() => setCompareMode(v => !v)}
+                cropMode={cropMode}
+                onCrop={() => { setCropMode(v => !v); setCompareMode(false); }}
+            />
 
             <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
                 {/*Left-Side*/}
@@ -340,12 +357,27 @@ export default function Editor() {
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
-                                <PixelCanvas
-                                    src={selectedBg}
-                                    effect={selectedPixelEffect}
-                                    settings={pixelEffectSettings}
-                                    presetFilter={`${presetFilter} ${cssFilter}`.trim()}
-                                />
+                                {cropMode ? (
+                                    <CropOverlay
+                                        src={selectedBg}
+                                        onApply={handleCropApply}
+                                        onCancel={() => setCropMode(false)}
+                                    />
+                                ) : compareMode ? (
+                                    <CompareSlider
+                                        src={selectedBg}
+                                        effect={selectedPixelEffect}
+                                        settings={pixelEffectSettings}
+                                        presetFilter={`${presetFilter} ${cssFilter}`.trim()}
+                                    />
+                                ) : (
+                                    <PixelCanvas
+                                        src={selectedBg}
+                                        effect={selectedPixelEffect}
+                                        settings={pixelEffectSettings}
+                                        presetFilter={`${presetFilter} ${cssFilter}`.trim()}
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

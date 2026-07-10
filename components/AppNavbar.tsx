@@ -17,7 +17,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function AppNavbar({ handleReset, onImageUpload }: { handleReset?: () => void; onImageUpload?: (url: string) => void }) {
+export default function AppNavbar({ handleReset, onImageUpload, compareMode, onCompare, cropMode, onCrop }: {
+  handleReset?: () => void;
+  onImageUpload?: (url: string) => void;
+  compareMode?: boolean;
+  onCompare?: () => void;
+  cropMode?: boolean;
+  onCrop?: () => void;
+}) {
   const resetBtn = () => {
     handleReset?.();
   };
@@ -80,9 +87,9 @@ export default function AppNavbar({ handleReset, onImageUpload }: { handleReset?
               <Plus className="mx-auto" size={14} />
             </button>
 
-            <NavButton icon={<Omega size={15} />} label="Compare" onClick={() => { console.log("Compare") }} />
+            <NavButton icon={<Omega size={15} />} label="Compare" active={compareMode} onClick={() => onCompare?.()} />
 
-            <NavButton icon={<Crop size={15} />} label="Crop" onClick={() => { console.log("Crop") }} />
+            <NavButton icon={<Crop size={15} />} label="Crop" active={cropMode} onClick={() => onCrop?.()} />
           </div>
 
           {/* ================= Right ================= */}
@@ -130,10 +137,14 @@ function MobileNavButton({ icon, label }: { icon: React.ReactNode; label: string
   );
 }
 
-function NavButton({ icon, label, onClick }: { icon: React.ReactNode; label: string, onClick: () => void }) {
+function NavButton({ icon, label, onClick, active }: { icon: React.ReactNode; label: string; onClick: () => void; active?: boolean }) {
   return (
     <button
-      className="flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] text-white/85 cursor-pointer transition border border-transparent hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+      className={`flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] cursor-pointer transition border ${
+        active
+          ? "bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] border-[var(--border-secondary-color)] text-white shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+          : "border-transparent text-white/85 hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+      }`}
       onClick={onClick}>
       {icon}
       {label}
