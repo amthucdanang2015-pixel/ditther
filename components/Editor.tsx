@@ -8,6 +8,7 @@ import EffectSlider from "./EffectSlider";
 import PixelCanvas from "./PixelCanvas";
 import CompareSlider from "./CompareSlider";
 import CropOverlay from "./CropOverlay";
+import { Shuffle, Sparkles } from 'lucide-react';
 
 export default function Editor() {
     const backgrounds = Array.from(
@@ -177,6 +178,32 @@ export default function Editor() {
     const handleCropApply = (croppedUrl: string) => {
         setSelectedBg(croppedUrl);
         setCropMode(false);
+    };
+
+    // Shuffle — pick a random background, never the same one twice in a row
+    const handleShuffle = () => {
+        const others = backgrounds.filter(b => b !== selectedBg);
+        const pool = others.length > 0 ? others : backgrounds;
+        setSelectedBg(pool[Math.floor(Math.random() * pool.length)]);
+    };
+
+    // Remix — randomise preset + pixel effect + all sliders for a surprise look
+    const handleRemix = () => {
+        const pixelEffects = ["Dither", "ASCII", "Halftone", "Dot", "LEGO", "Voxel", "LED", "Lattice"];
+        const rand = (min: number, max: number) => Math.round(Math.random() * (max - min) + min);
+        const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+
+        setSelectedPreset(pick([...presets, null as unknown as string]));
+        setSelectedPixelEffect(pick([...pixelEffects, null as unknown as string]));
+        setPixelEffectSettings({
+            size:     rand(20, 120),
+            fill:     rand(40, 100),
+            density:  rand(2, 18),
+            exposure: rand(70, 140),
+            scatter:  rand(0, 80),
+            opacity:  rand(60, 100),
+            blending: rand(20, 100),
+        });
     };
     const cssFilter = filterGroups
         .flatMap(group => group.filters)
@@ -383,11 +410,17 @@ export default function Editor() {
                     </div>
 
                     <div className="flex gap-4 p-5 pt-0">
-                        <button className="flex-1 h-16 rounded-full bg-[#232326] border border-white/10 hover:bg-[#303035] transition">
+                        <button
+                            onClick={handleShuffle}
+                            className="flex-1 h-16 rounded-full bg-[#232326] border border-white/10 hover:bg-[#303035] active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                            <Shuffle size={20} />
                             Shuffle
                         </button>
 
-                        <button className="flex-1 h-16 rounded-full bg-[#232326] border border-white/10 hover:bg-[#303035] transition">
+                        <button
+                            onClick={handleRemix}
+                            className="flex-1 h-16 rounded-full bg-[#232326] border border-white/10 hover:bg-[#303035] active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer">
+                            <Sparkles size={20} />
                             Remix
                         </button>
                     </div>
