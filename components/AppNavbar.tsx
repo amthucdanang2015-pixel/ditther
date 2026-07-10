@@ -16,6 +16,9 @@ import {
 import Link from "next/link";
 
 export default function AppNavbar({ handleReset }: any) {
+  const resetBtn = () => {
+    handleReset();
+  }
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
@@ -45,7 +48,7 @@ export default function AppNavbar({ handleReset }: any) {
           {/* ================= Center ================= */}
 
           <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-4 cursor-pointer">
-            <NavButton icon={<RotateCcw size={15} />} label="Reset" onClick={handleReset} />
+            <NavButton icon={<RotateCcw size={15} />} label="Reset" onClick={resetBtn} />
 
             <NavButton icon={<Sparkles size={15} />} label="Backgrounds" onClick={() => { console.log("Background") }} />
 

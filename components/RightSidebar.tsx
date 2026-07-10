@@ -8,8 +8,10 @@ import Animation from "./Animation";
 import Duotone from "./Duotone";
 
 
-export default function RightSidebar() {
-    const [effects, setEffects] = useState({
+export default function RightSidebar({
+    selectedPixelEffect = null,
+    setSelectedPixelEffect,
+    pixelEffectSettings = {
         size: 70,
         fill: 100,
         density: 8,
@@ -17,12 +19,20 @@ export default function RightSidebar() {
         scatter: 0,
         opacity: 100,
         blending: 50,
-
-    });
+    },
+    setPixelEffectSettings
+}: {
+    selectedPixelEffect?: string | null,
+    setSelectedPixelEffect?: (val: string | null) => void,
+    pixelEffectSettings?: any,
+    setPixelEffectSettings?: any
+}) {
+    const effects = pixelEffectSettings;
+    const setEffects = setPixelEffectSettings || (() => { });
     const [enabled, setEnabled] = useState(true);
     const [duotone, setDuotone] = useState(true);
     const [animate, setAnimate] = useState(true);
-    const presets = [
+    const pixelEffects = [
         "Dither",
         "ASCII",
         "Halftone",
@@ -32,7 +42,6 @@ export default function RightSidebar() {
         "LED",
         "Lattice"
     ];
-    const [selectedPreset, setSelectedPreset] = useState("Dither");
 
     return (
         <aside className="w-full md:w-[320px] shrink-0 rounded-t-[34px] md:rounded-tr-none md:rounded-tl-[34px] bg-[#171719] flex flex-col md:flex-none md:h-full md:overflow-hidden">
@@ -101,13 +110,13 @@ export default function RightSidebar() {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                        {presets.map((preset) => (
+                        {pixelEffects.map((preset) => (
                             <button
                                 key={preset}
-                                onClick={() => setSelectedPreset(preset)}
+                                onClick={() => setSelectedPixelEffect?.(preset)}
                                 className={`
                                         rounded-full border px-3 py-1.5 text-[11px] leading-none cursor-pointer transition-all duration-200
-                                        ${selectedPreset === preset
+                                        ${selectedPixelEffect === preset
                                         ? "bg-gradient-to-b from-[#4b4b52] to-[#3a3a40] text-white border-white"
                                         : "bg-[#2b2b2f] text-[#8d8d95] border-[#3a3a40] hover:bg-[#34343a]"
                                     }
@@ -125,7 +134,7 @@ export default function RightSidebar() {
                         value={effects.size}
                         max={150}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, size: v }))
+                            setEffects((prev: any) => ({ ...prev, size: v }))
                         }
                     />
                     <EffectSlider
@@ -133,7 +142,7 @@ export default function RightSidebar() {
                         value={effects.fill}
                         suffix="%"
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, fill: v }))
+                            setEffects((prev: any) => ({ ...prev, fill: v }))
                         }
                     />
 
@@ -142,7 +151,7 @@ export default function RightSidebar() {
                         value={effects.density}
                         max={20}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, density: v }))
+                            setEffects((prev: any) => ({ ...prev, density: v }))
                         }
                     />
                     <EffectSlider
@@ -150,7 +159,7 @@ export default function RightSidebar() {
                         value={effects.exposure}
                         max={150}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, exposure: v }))
+                            setEffects((prev: any) => ({ ...prev, exposure: v }))
                         }
                     />
                     <EffectSlider
@@ -158,7 +167,7 @@ export default function RightSidebar() {
                         value={effects.scatter}
                         max={150}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, scatter: v }))
+                            setEffects((prev: any) => ({ ...prev, scatter: v }))
                         }
                     />
                     <EffectSlider
@@ -166,7 +175,7 @@ export default function RightSidebar() {
                         value={effects.opacity}
                         max={150}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, opacity: v }))
+                            setEffects((prev: any) => ({ ...prev, opacity: v }))
                         }
                     />
                     <EffectSlider
@@ -174,7 +183,7 @@ export default function RightSidebar() {
                         value={effects.blending}
                         max={150}
                         onChange={(v) =>
-                            setEffects(prev => ({ ...prev, blending: v }))
+                            setEffects((prev: any) => ({ ...prev, blending: v }))
                         }
                     />
                 </div>

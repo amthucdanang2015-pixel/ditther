@@ -5,6 +5,7 @@ import Image from "next/image";
 import AppNavbar from "./AppNavbar";
 import RightSidebar from "./RightSidebar";
 import EffectSlider from "./EffectSlider";
+import PixelCanvas from "./PixelCanvas";
 
 export default function Editor() {
     const backgrounds = Array.from(
@@ -14,6 +15,16 @@ export default function Editor() {
 
     const [selectedBg, setSelectedBg] = useState(backgrounds[0]);
     const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
+    const [selectedPixelEffect, setSelectedPixelEffect] = useState<string | null>(null);
+    const [pixelEffectSettings, setPixelEffectSettings] = useState({
+        size: 70,
+        fill: 100,
+        density: 8,
+        exposure: 110,
+        scatter: 0,
+        opacity: 100,
+        blending: 50,
+    });
 
     const presets = [
         "Cinematic",
@@ -45,6 +56,17 @@ export default function Editor() {
 
         Neon:
             "contrast(1.4) saturate(2) hue-rotate(15deg)",
+    };
+
+    const pixelEffectStyles: Record<string, string> = {
+        Dither: "contrast(1.2) grayscale(0.5)",
+        ASCII: "contrast(1.5) grayscale(1) sepia(1)",
+        Halftone: "contrast(2) grayscale(1)",
+        Dot: "blur(2px) contrast(3)",
+        LEGO: "blur(1px) contrast(2) saturate(2)",
+        Voxel: "saturate(1.5) blur(1px)",
+        LED: "brightness(1.5) saturate(2) hue-rotate(90deg)",
+        Lattice: "contrast(1.5) drop-shadow(2px 4px 6px black)"
     };
 
     // const [filterGroups, setFilterGroups] = useState([
@@ -131,6 +153,16 @@ export default function Editor() {
         setSelectedBg(backgrounds[0]);
         setSelectedPreset(null);
         setFilterGroups(defaultFilterGroups);
+        setSelectedPixelEffect(null);
+        setPixelEffectSettings({
+            size: 70,
+            fill: 100,
+            density: 8,
+            exposure: 110,
+            scatter: 0,
+            opacity: 100,
+            blending: 50,
+        });
     }
     const cssFilter = filterGroups
         .flatMap(group => group.filters)
@@ -173,6 +205,11 @@ export default function Editor() {
         .join(" ");
 
     const presetFilter = selectedPreset ? presetStyles[selectedPreset] : "";
+    const pixelEffectBaseFilter = selectedPixelEffect ? (pixelEffectStyles[selectedPixelEffect] || "") : "";
+    const dynamicEffectFilter = selectedPixelEffect
+        ? `brightness(${pixelEffectSettings.exposure}%) opacity(${pixelEffectSettings.opacity}%) blur(${pixelEffectSettings.size / 20}px) contrast(${100 + pixelEffectSettings.fill / 2}%)`
+        : "";
+    const pixelFilter = `${pixelEffectBaseFilter} ${dynamicEffectFilter}`.trim();
 
     return (
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
@@ -299,16 +336,11 @@ export default function Editor() {
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
-                                {/* <Image src={selectedBg} alt="" fill sizes={"70vw"} className="object-cover" /> */}
-                                <Image
+                                <PixelCanvas
                                     src={selectedBg}
-                                    alt=""
-                                    fill
-                                    sizes="70vw"
-                                    className="object-cover transition-all duration-500"
-                                    style={{
-                                        filter: `${presetFilter} ${cssFilter}`,
-                                    }}
+                                    effect={selectedPixelEffect}
+                                    settings={pixelEffectSettings}
+                                    presetFilter={`${presetFilter} ${cssFilter}`.trim()}
                                 />
                             </div>
                         </div>
@@ -324,7 +356,12 @@ export default function Editor() {
                         </button>
                     </div>
                 </main>
-                <RightSidebar />
+                <RightSidebar
+                    selectedPixelEffect={selectedPixelEffect}
+                    setSelectedPixelEffect={setSelectedPixelEffect}
+                    pixelEffectSettings={pixelEffectSettings}
+                    setPixelEffectSettings={setPixelEffectSettings}
+                />
             </div>
         </div>
     );
