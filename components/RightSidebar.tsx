@@ -74,8 +74,11 @@ export default function RightSidebar({
 
                 {/* PIXEL EFFECT */}
 
-                <div className="flex flex-col justify-between">
-                    <div className="flex items-center justify-between">
+                <div
+                    className={`flex flex-col justify-between transition-opacity duration-200 ${!enabled ? 'opacity-45 pointer-events-none' : ''}`}
+                    id="pixelEffect"
+                >
+                    <div className="flex items-center justify-between pointer-events-auto">
                         <h3 className="text-[10px] tracking-[0.08em] pb-2 text-[#8d8d95]">
                             PIXEL EFFECTS
                         </h3>
@@ -128,7 +131,8 @@ export default function RightSidebar({
                     </div>
                 </div>
 
-                <div className="mt-5 flex flex-wrap gap-2">
+                <div
+                    className={`mt-5 flex flex-wrap gap-2 ${!enabled ? 'opacity-45 pointer-events-none' : ''}`}>
                     <EffectSlider
                         label="Size"
                         value={effects.size}
