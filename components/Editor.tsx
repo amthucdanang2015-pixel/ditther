@@ -9,7 +9,7 @@ import EffectSlider from "./EffectSlider";
 export default function Editor() {
     const backgrounds = Array.from(
         { length: 8 },
-        (_, i) => `/images/strip_${i + 2}.jpg`,
+        (_, i) => `/images/free_${i + 2}.jpg`,
     );
 
     const [selectedBg, setSelectedBg] = useState(backgrounds[0]);
@@ -24,54 +24,122 @@ export default function Editor() {
         "Dreamy",
         "Neon",
     ];
+    const presetStyles: Record<string, string> = {
+        Cinematic:
+            "brightness(0.9) contrast(1.25) saturate(1.2)",
+
+        "Golden Hour":
+            "brightness(1.05) contrast(1.05) saturate(1.4) sepia(0.2) hue-rotate(-10deg)",
+
+        Dusted:
+            "brightness(1.05) contrast(.9) saturate(.7)",
+
+        Noir:
+            "grayscale(1) contrast(1.4)",
+
+        Moonlight:
+            "brightness(.85) saturate(.7) hue-rotate(190deg)",
+
+        Dreamy:
+            "brightness(1.1) saturate(1.2) blur(.5px)",
+
+        Neon:
+            "contrast(1.4) saturate(2) hue-rotate(15deg)",
+    };
 
     const [filterGroups, setFilterGroups] = useState([
         {
             title: "Tone",
             filters: [
-                { name: "Brightness", value: 85, max: 200, suffix: "%" },
-                { name: "Contrast", value: 120, max: 200, suffix: "%" },
-                { name: "Saturate", value: 140, max: 200, suffix: "%" },
-                { name: "Hue", value: 0, max: 360, suffix: "deg" },
+                { key: "brightness", name: "Brightness", value: 100, max: 200, suffix: "%" },
+                { key: "contrast", name: "Contrast", value: 100, max: 200, suffix: "%" },
+                { key: "saturate", name: "Saturate", value: 100, max: 300, suffix: "%" },
+                { key: "hue", name: "Hue", value: 0, max: 360, suffix: "deg" },
             ],
         },
+
         {
             title: "Color",
             filters: [
-                { name: "Grayscale", value: 0, max: 100, suffix: "%" },
-                { name: "Sepia", value: 0, max: 100, suffix: "%" },
-                { name: "Invert", value: 0, max: 100, suffix: "%" },
+                { key: "grayscale", name: "Grayscale", value: 0, max: 100, suffix: "%" },
+                { key: "sepia", name: "Sepia", value: 0, max: 100, suffix: "%" },
+                { key: "invert", name: "Invert", value: 0, max: 100, suffix: "%" },
             ],
         },
+
         {
             title: "Lens",
             filters: [
-                { name: "Blur", value: 5, max: 20, suffix: "px" },
-                { name: "Glow", value: 10, max: 100, suffix: "" },
-                { name: "Opacity", value: 60, max: 100, suffix: "%" },
+                { key: "blur", name: "Blur", value: 0, max: 20, suffix: "px" },
+                { key: "opacity", name: "Opacity", value: 100, max: 100, suffix: "%" },
             ],
-        },
-        {
-            title: "Vignette",
-            filters: [
-                { name: "Vignette", value: 50, max: 100, suffix: "" },
-            ],
-        },
-        {
-            title: "Texture",
-            filters: [
-                { name: "Noise", value: 0, max: 100, suffix: "" },
-                { name: "Grain", value: 0, max: 100, suffix: "" },
-            ],
-        },
-        {
-            title: "Distort",
-            filters: [
-                { name: "Shift", value: 0, max: 100, suffix: "" },
-                { name: "Pixelate", value: 0, max: 100, suffix: "" },
-            ],
-        },
+        }
     ]);
+
+    const updateFilter = (
+        groupTitle: string,
+        key: string,
+        value: number
+    ) => {
+
+        setFilterGroups(prev =>
+            prev.map(group =>
+                group.title !== groupTitle
+                    ? group
+                    : {
+                        ...group,
+                        filters: group.filters.map(filter =>
+                            filter.key === key
+                                ? { ...filter, value }
+                                : filter
+                        ),
+                    }
+            )
+        );
+
+    };
+
+    const cssFilter = filterGroups
+        .flatMap(group => group.filters)
+        .map(f => {
+
+            switch (f.key) {
+
+                case "brightness":
+                    return `brightness(${f.value}%)`;
+
+                case "contrast":
+                    return `contrast(${f.value}%)`;
+
+                case "saturate":
+                    return `saturate(${f.value}%)`;
+
+                case "hue":
+                    return `hue-rotate(${f.value}deg)`;
+
+                case "grayscale":
+                    return `grayscale(${f.value}%)`;
+
+                case "sepia":
+                    return `sepia(${f.value}%)`;
+
+                case "invert":
+                    return `invert(${f.value}%)`;
+
+                case "blur":
+                    return `blur(${f.value}px)`;
+
+                case "opacity":
+                    return `opacity(${f.value}%)`;
+
+                default:
+                    return "";
+            }
+
+        })
+        .join(" ");
+
+    const presetFilter = presetStyles[selectedPreset] ?? "";
 
     return (
         <div className="fixed inset-0 w-full overflow-hidden overscroll-none bg-[#101011] text-white flex flex-col">
@@ -160,54 +228,35 @@ export default function Editor() {
                         {/* GROUPS */}
 
                         <div className="space-y-2">
-                            {filterGroups.map((group, groupIndex) => (
-                                <div key={group.title}>
-                                    <div className="mb-1 flex items-center justify-between">
-                                        <h3 className="text-[10px] uppercase tracking-[0.15em] text-[#4e4e53]">
+                            {filterGroups.map(group => (
+
+                                <div key={group.title} className="space-y-4">
+
+                                    <div className="flex justify-between mb-2">
+
+                                        <h3 className="uppercase text-xs tracking-widest text-zinc-500">
                                             {group.title}
                                         </h3>
 
-                                        <span className="text-zinc-500 text-lg">⌃</span>
                                     </div>
 
-                                    {/* Sliders */}
-                                    <div className="space-y-2">
+                                    {group.filters.map(filter => (
 
-                                        {group.filters.map((filter, filterIndex) => (
+                                        <EffectSlider
+                                            key={filter.key}
+                                            label={filter.name}
+                                            value={filter.value}
+                                            max={filter.max}
+                                            suffix={filter.suffix}
+                                            onChange={(v) =>
+                                                updateFilter(group.title, filter.key, v)
+                                            }
+                                        />
 
-                                            <EffectSlider
-                                                key={filter.name}
-                                                label={filter.name}
-                                                value={filter.value}
-                                                max={filter.max}
-                                                suffix={filter.suffix}
-                                                onChange={(value) => {
-
-                                                    setFilterGroups(prev => {
-
-                                                        const next = [...prev];
-
-                                                        next[groupIndex] = {
-                                                            ...next[groupIndex],
-                                                            filters: [...next[groupIndex].filters],
-                                                        };
-
-                                                        next[groupIndex].filters[filterIndex] = {
-                                                            ...next[groupIndex].filters[filterIndex],
-                                                            value,
-                                                        };
-
-                                                        return next;
-                                                    });
-
-                                                }}
-                                            />
-
-                                        ))}
-
-                                    </div>
+                                    ))}
 
                                 </div>
+
                             ))}
                         </div>
                     </div>
@@ -217,7 +266,17 @@ export default function Editor() {
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
-                                <Image src={selectedBg} alt="" fill sizes={"70vw"} className="object-cover" />
+                                {/* <Image src={selectedBg} alt="" fill sizes={"70vw"} className="object-cover" /> */}
+                                <Image
+                                    src={selectedBg}
+                                    alt=""
+                                    fill
+                                    sizes="70vw"
+                                    className="object-cover transition-all duration-500"
+                                    style={{
+                                        filter: `${presetFilter} ${cssFilter}`,
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -232,21 +291,7 @@ export default function Editor() {
                         </button>
                     </div>
                 </main>
-
-                {/* ================= RIGHT ================= */}
                 <RightSidebar />
-                {/* <aside className="w-[340px] bg-[#1b1b1d] rounded-tl-3xl border-l border-white/5">
-                    <div className="h-full overflow-y-auto p-5 space-y-4">
-                        {Array.from({ length: 35 }).map((_, i) => (
-                            <div
-                                key={i}
-                                className="rounded-xl bg-[#28282d] h-16 flex items-center justify-center text-zinc-400"
-                            >
-                                Control {i + 1}
-                            </div>
-                        ))}
-                    </div>
-                </aside> */}
             </div>
         </div>
     );
