@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
 import AppNavbar from "./AppNavbar";
 import RightSidebar from "./RightSidebar";
@@ -21,6 +21,7 @@ export default function Editor() {
     const [selectedPixelEffect, setSelectedPixelEffect] = useState<string | null>(null);
     const [compareMode, setCompareMode] = useState(false);
     const [cropMode, setCropMode] = useState(false);
+    const [isPending, startTransition] = useTransition();
     const [pixelEffectSettings, setPixelEffectSettings] = useState({
         size: 70,
         fill: 100,
@@ -156,18 +157,20 @@ export default function Editor() {
     };
     const handleReset = () => {
         // setSelectedBg(backgrounds[0]);
-        setSelectedPreset(null);
-        setCompareMode(false);
-        setFilterGroups(defaultFilterGroups);
-        setSelectedPixelEffect(null);
-        setPixelEffectSettings({
-            size: 70,
-            fill: 100,
-            density: 8,
-            exposure: 110,
-            scatter: 0,
-            opacity: 100,
-            blending: 50,
+        startTransition(() => {
+            setSelectedPreset(null);
+            setCompareMode(false);
+            setFilterGroups(defaultFilterGroups);
+            setSelectedPixelEffect(null);
+            setPixelEffectSettings({
+                size: 70,
+                fill: 100,
+                density: 8,
+                exposure: 110,
+                scatter: 0,
+                opacity: 100,
+                blending: 50,
+            });
         });
     };
 
@@ -193,16 +196,18 @@ export default function Editor() {
         const rand = (min: number, max: number) => Math.round(Math.random() * (max - min) + min);
         const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 
-        setSelectedPreset(pick([...presets, null as unknown as string]));
-        setSelectedPixelEffect(pick([...pixelEffects, null as unknown as string]));
-        setPixelEffectSettings({
-            size:     rand(20, 120),
-            fill:     rand(40, 100),
-            density:  rand(2, 18),
-            exposure: rand(70, 140),
-            scatter:  rand(0, 80),
-            opacity:  rand(60, 100),
-            blending: rand(20, 100),
+        startTransition(() => {
+            setSelectedPreset(pick([...presets, null as unknown as string]));
+            setSelectedPixelEffect(pick([...pixelEffects, null as unknown as string]));
+            setPixelEffectSettings({
+                size:     rand(20, 120),
+                fill:     rand(40, 100),
+                density:  rand(2, 18),
+                exposure: rand(70, 140),
+                scatter:  rand(0, 80),
+                opacity:  rand(60, 100),
+                blending: rand(20, 100),
+            });
         });
     };
     const cssFilter = filterGroups
@@ -258,9 +263,9 @@ export default function Editor() {
                 handleReset={handleReset}
                 onImageUpload={handleImageUpload}
                 compareMode={compareMode}
-                onCompare={() => setCompareMode(v => !v)}
+                onCompare={() => startTransition(() => setCompareMode(v => !v))}
                 cropMode={cropMode}
-                onCrop={() => { setCropMode(v => !v); setCompareMode(false); }}
+                onCrop={() => { setCropMode(v => !v); startTransition(() => setCompareMode(false)); }}
             />
 
             <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
@@ -384,6 +389,18 @@ export default function Editor() {
                     <div className="flex-1 p-5">
                         <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
+                                {/* Pending badge shown while React schedules the transition */}
+                                {isPending && (
+                                    <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+                                        <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white/70 text-[10px] tracking-widest uppercase font-medium px-3 py-1.5 rounded-full border border-white/10">
+                                            <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24" fill="none">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"/>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                                            </svg>
+                                            Applying effect…
+                                        </span>
+                                    </div>
+                                )}
                                 {cropMode ? (
                                     <CropOverlay
                                         src={selectedBg}
@@ -427,9 +444,9 @@ export default function Editor() {
                 </main>
                 <RightSidebar
                     selectedPixelEffect={selectedPixelEffect}
-                    setSelectedPixelEffect={setSelectedPixelEffect}
+                    setSelectedPixelEffect={(val) => startTransition(() => setSelectedPixelEffect(val))}
                     pixelEffectSettings={pixelEffectSettings}
-                    setPixelEffectSettings={setPixelEffectSettings}
+                    setPixelEffectSettings={(updater: any) => startTransition(() => setPixelEffectSettings(updater))}
                 />
             </div>
         </div>
