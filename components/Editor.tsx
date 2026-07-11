@@ -183,6 +183,53 @@ export default function Editor() {
         setCropMode(false);
     };
 
+    const handleApplyLook = (lookName: string) => {
+        startTransition(() => {
+            switch (lookName) {
+                case "Arcade":
+                    setSelectedPreset("Neon");
+                    setSelectedPixelEffect("Dither");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 60, fill: 100, density: 8, exposure: 110 }));
+                    break;
+                case "Japanese":
+                    setSelectedPreset(null);
+                    setSelectedPixelEffect("ASCII");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 18, fill: 100, density: 10, exposure: 120 }));
+                    break;
+                case "Static":
+                    setSelectedPreset("Noir");
+                    setSelectedPixelEffect("Halftone");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 40, fill: 100, density: 5, exposure: 100 }));
+                    break;
+                case "Prism":
+                    setSelectedPreset("Cinematic");
+                    setSelectedPixelEffect("Dot");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 50, fill: 100, density: 12, exposure: 110 }));
+                    break;
+                case "Acid Rain":
+                    setSelectedPreset("Moonlight");
+                    setSelectedPixelEffect("Lattice");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 80, fill: 100, density: 15, exposure: 90 }));
+                    break;
+                case "Mosaic":
+                    setSelectedPreset("Golden Hour");
+                    setSelectedPixelEffect("LEGO");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 40, fill: 100, density: 10, exposure: 110 }));
+                    break;
+                case "Voxel":
+                    setSelectedPreset(null);
+                    setSelectedPixelEffect("Voxel");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 70, fill: 100, density: 8, exposure: 110 }));
+                    break;
+                case "Terminal":
+                    setSelectedPreset("Noir");
+                    setSelectedPixelEffect("LED");
+                    setPixelEffectSettings(prev => ({ ...prev, size: 50, fill: 100, density: 8, exposure: 120 }));
+                    break;
+            }
+        });
+    };
+
     // Shuffle — pick a random background, never the same one twice in a row
     const handleShuffle = () => {
         const others = backgrounds.filter(b => b !== selectedBg);
@@ -447,6 +494,7 @@ export default function Editor() {
                     setSelectedPixelEffect={(val) => startTransition(() => setSelectedPixelEffect(val))}
                     pixelEffectSettings={pixelEffectSettings}
                     setPixelEffectSettings={(updater: any) => startTransition(() => setPixelEffectSettings(updater))}
+                    onApplyLook={handleApplyLook}
                 />
             </div>
         </div>

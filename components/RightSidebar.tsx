@@ -20,12 +20,14 @@ export default function RightSidebar({
         opacity: 100,
         blending: 50,
     },
-    setPixelEffectSettings
+    setPixelEffectSettings,
+    onApplyLook
 }: {
     selectedPixelEffect?: string | null,
     setSelectedPixelEffect?: (val: string | null) => void,
     pixelEffectSettings?: any,
-    setPixelEffectSettings?: any
+    setPixelEffectSettings?: any,
+    onApplyLook?: (look: string) => void
 }) {
     const effects = pixelEffectSettings;
     const setEffects = setPixelEffectSettings || (() => { });
@@ -67,7 +69,7 @@ export default function RightSidebar({
                 </div>
 
                 <div className="mt-5">
-                    <LooksGrid />
+                    <LooksGrid onLookClick={onApplyLook} />
                 </div>
 
                 <div className="my-8 border-t border-white/10" />
