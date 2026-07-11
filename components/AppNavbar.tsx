@@ -1,21 +1,19 @@
 "use client";
 
-import { useRef } from "react";
-
+import { useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import {
   RotateCcw,
   Sparkles,
-  StarHalf,
   Crop,
   Plus,
   Crown,
   Upload,
-  Grid3X3,
   Grip,
   Omega,
 } from "lucide-react";
 import Link from "next/link";
+import FoundingModal, { FoundingModalStep } from "./FoundingModal";
 
 export default function AppNavbar({ handleReset, onImageUpload, compareMode, onCompare, cropMode, onCrop }: {
   handleReset?: () => void;
@@ -39,6 +37,14 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
     // Reset input so re-selecting the same file triggers onChange again
     e.target.value = "";
   };
+
+  // ── Founding modal state ────────────────────────────────────────────────
+  const [modalStep, setModalStep] = useState<FoundingModalStep>(null);
+
+  const openBelievers = useCallback(() => setModalStep("members"), []);
+  const closeModal = useCallback(() => setModalStep(null), []);
+  const goToPro = useCallback(() => setModalStep("pro"), []);
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 h-[60px] border-b border-white/5 bg-[#0f0f10]">
@@ -59,7 +65,10 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
                 </button>
               </div>
             </Link>
-            <button className="ml-2 flex items-center gap-2 text-[14px] text-white/65 transition cursor-pointer hover:text-[#9ad013]">
+            <button
+              onClick={openBelievers}
+              className="ml-2 flex items-center gap-2 text-[14px] text-white/65 transition cursor-pointer hover:text-[#9ad013]"
+            >
               <Crown size={14} />
               Believers
             </button>
@@ -124,6 +133,13 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
         <MobileNavButton icon={<Omega size={20} />} label="Compare" />
         <MobileNavButton icon={<Crop size={20} />} label="Crop" />
       </nav>
+
+      {/* ── Founding / Pro Modal ── */}
+      <FoundingModal
+        step={modalStep}
+        onClose={closeModal}
+        onBecomeMember={goToPro}
+      />
     </>
   );
 }
