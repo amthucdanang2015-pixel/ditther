@@ -15,14 +15,16 @@ import {
 import Link from "next/link";
 import FoundingModal, { FoundingModalStep } from "./FoundingModal";
 import NewsModal from "./NewModal";
+import ExportDropdown from "./ExportDropdown";
 
-export default function AppNavbar({ handleReset, onImageUpload, compareMode, onCompare, cropMode, onCrop }: {
+export default function AppNavbar({ handleReset, onImageUpload, compareMode, onCompare, cropMode, onCrop, selectedBg }: {
   handleReset?: () => void;
   onImageUpload?: (url: string) => void;
   compareMode?: boolean;
   onCompare?: () => void;
   cropMode?: boolean;
   onCrop?: () => void;
+  selectedBg?: string;
 }) {
   const resetBtn = () => {
     handleReset?.();
@@ -42,9 +44,52 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
   // ── Founding modal state ────────────────────────────────────────────────
   const [modalStep, setModalStep] = useState<FoundingModalStep>(null);
   const [isNewsModal, setIsNewsModal] = useState<Boolean>(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
   const openBelievers = useCallback(() => setModalStep("members"), []);
   const closeModal = useCallback(() => setModalStep(null), []);
   const goToPro = useCallback(() => setModalStep("pro"), []);
+
+  const handleExport = async (format: string, resolutionLabel: string) => {
+    if (!selectedBg) return;
+
+    try {
+      const img = new window.Image();
+      img.crossOrigin = "anonymous";
+      img.src = selectedBg;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+
+      const canvas = document.createElement("canvas");
+      let targetWidth = img.width;
+      if (resolutionLabel.includes("720px")) targetWidth = 1280;
+      else if (resolutionLabel.includes("1080px")) targetWidth = 1920;
+      else if (resolutionLabel.includes("2048px")) targetWidth = 2048;
+      else if (resolutionLabel.includes("3840px")) targetWidth = 3840;
+
+      const scale = targetWidth / img.width;
+      canvas.width = targetWidth;
+      canvas.height = img.height * scale;
+
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const mimeType = format === "PNG" ? "image/png" : "image/jpeg";
+        const dataUrl = canvas.toDataURL(mimeType, 0.9);
+
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = `ditther-manhnc-${Math.floor(Date.now() / 1000)}.${format.toLowerCase()}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    } catch (e) {
+      console.error("Export failed", e);
+    }
+    setIsExportOpen(false);
+  };
 
   return (
     <>
@@ -110,10 +155,20 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
               What's New
             </button>
 
-            <button className="flex items-center gap-2 rounded-full border border-white/10 bg-[#1a1a1a] p-2 h-[28px] text-[12px] cursor-pointer hover:bg-[#232323] transition">
-              <Upload size={14} />
-              Export
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setIsExportOpen(!isExportOpen)}
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-[#1a1a1a] p-2 h-[28px] text-[12px] cursor-pointer hover:bg-[#232323] transition">
+                <Upload size={14} />
+                Export
+              </button>
+
+              <ExportDropdown
+                isOpen={isExportOpen}
+                onClose={() => setIsExportOpen(false)}
+                onExport={handleExport}
+              />
+            </div>
 
             <button className="rounded-full bg-gradient-to-b from-[#f6f6f6] to-[#cfcfcf] h-[28px] p-2 text-[12px] flex items-center justify-center text-black hover:brightness-105 cursor-pointer transition">
               Upgrade

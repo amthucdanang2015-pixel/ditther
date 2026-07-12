@@ -32,8 +32,6 @@ export default function RightSidebar({
     const effects = pixelEffectSettings;
     const setEffects = setPixelEffectSettings || (() => { });
     const [enabled, setEnabled] = useState(true);
-    const [duotone, setDuotone] = useState(true);
-    const [animate, setAnimate] = useState(true);
     const pixelEffects = [
         "Dither",
         "ASCII",

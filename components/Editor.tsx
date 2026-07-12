@@ -75,35 +75,6 @@ export default function Editor() {
         Lattice: "contrast(1.5) drop-shadow(2px 4px 6px black)"
     };
 
-    // const [filterGroups, setFilterGroups] = useState([
-    //     {
-    //         title: "Tone",
-    //         filters: [
-    //             { key: "brightness", name: "Brightness", value: 100, max: 200, suffix: "%" },
-    //             { key: "contrast", name: "Contrast", value: 100, max: 200, suffix: "%" },
-    //             { key: "saturate", name: "Saturate", value: 100, max: 300, suffix: "%" },
-    //             { key: "hue", name: "Hue", value: 0, max: 360, suffix: "deg" },
-    //         ],
-    //     },
-
-    //     {
-    //         title: "Color",
-    //         filters: [
-    //             { key: "grayscale", name: "Grayscale", value: 0, max: 100, suffix: "%" },
-    //             { key: "sepia", name: "Sepia", value: 0, max: 100, suffix: "%" },
-    //             { key: "invert", name: "Invert", value: 0, max: 100, suffix: "%" },
-    //         ],
-    //     },
-
-    //     {
-    //         title: "Lens",
-    //         filters: [
-    //             { key: "blur", name: "Blur", value: 0, max: 20, suffix: "px" },
-    //             { key: "opacity", name: "Opacity", value: 100, max: 100, suffix: "%" },
-    //         ],
-    //     }
-    // ]);
-
     const defaultFilterGroups = [
         {
             title: "Tone",
@@ -247,12 +218,12 @@ export default function Editor() {
             setSelectedPreset(pick([...presets, null as unknown as string]));
             setSelectedPixelEffect(pick([...pixelEffects, null as unknown as string]));
             setPixelEffectSettings({
-                size:     rand(20, 120),
-                fill:     rand(40, 100),
-                density:  rand(2, 18),
+                size: rand(20, 120),
+                fill: rand(40, 100),
+                density: rand(2, 18),
                 exposure: rand(70, 140),
-                scatter:  rand(0, 80),
-                opacity:  rand(60, 100),
+                scatter: rand(0, 80),
+                opacity: rand(60, 100),
                 blending: rand(20, 100),
             });
         });
@@ -313,6 +284,7 @@ export default function Editor() {
                 onCompare={() => startTransition(() => setCompareMode(v => !v))}
                 cropMode={cropMode}
                 onCrop={() => { setCropMode(v => !v); startTransition(() => setCompareMode(false)); }}
+                selectedBg={selectedBg}
             />
 
             <div className="flex flex-col md:flex-row flex-1 pt-[60px] pb-[70px] md:pb-0 overflow-y-auto md:overflow-hidden">
@@ -441,8 +413,8 @@ export default function Editor() {
                                     <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
                                         <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white/70 text-[10px] tracking-widest uppercase font-medium px-3 py-1.5 rounded-full border border-white/10">
                                             <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24" fill="none">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"/>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                                             </svg>
                                             Applying effect…
                                         </span>
