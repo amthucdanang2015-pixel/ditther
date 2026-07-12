@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FoundingModal, { FoundingModalStep } from "./FoundingModal";
+import NewsModal from "./NewModal";
 
 export default function AppNavbar({ handleReset, onImageUpload, compareMode, onCompare, cropMode, onCrop }: {
   handleReset?: () => void;
@@ -40,7 +41,7 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
 
   // ── Founding modal state ────────────────────────────────────────────────
   const [modalStep, setModalStep] = useState<FoundingModalStep>(null);
-
+  const [isNewsModal, setIsNewsModal] = useState<Boolean>(false);
   const openBelievers = useCallback(() => setModalStep("members"), []);
   const closeModal = useCallback(() => setModalStep(null), []);
   const goToPro = useCallback(() => setModalStep("pro"), []);
@@ -104,7 +105,7 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
           {/* ================= Right ================= */}
 
           <div className="flex items-center gap-3">
-            <button className="hidden md:flex items-center gap-1 rounded-full px-3 py-2 text-[12px] text-white/65 hover:text-[#9ad013] cursor-pointer transition">
+            <button className="hidden md:flex items-center gap-1 rounded-full px-3 py-2 text-[12px] text-white/65 hover:text-[#9ad013] cursor-pointer transition" onClick={() => setIsNewsModal(true)}>
               <Sparkles size={15} />
               What's New
             </button>
@@ -140,6 +141,7 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
         onClose={closeModal}
         onBecomeMember={goToPro}
       />
+      <NewsModal isActive={isNewsModal} onClose={() => setIsNewsModal(false)} />
     </>
   );
 }
@@ -156,11 +158,10 @@ function MobileNavButton({ icon, label }: { icon: React.ReactNode; label: string
 function NavButton({ icon, label, onClick, active }: { icon: React.ReactNode; label: string; onClick: () => void; active?: boolean }) {
   return (
     <button
-      className={`flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] cursor-pointer transition border ${
-        active
-          ? "bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] border-[var(--border-secondary-color)] text-white shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
-          : "border-transparent text-white/85 hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
-      }`}
+      className={`flex items-center gap-2 rounded-full h-[30px] p-[8px] text-[12px] cursor-pointer transition border ${active
+        ? "bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] border-[var(--border-secondary-color)] text-white shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+        : "border-transparent text-white/85 hover:bg-[linear-gradient(180deg,var(--glass-bg-hover-from)_0%,var(--glass-bg-hover-to)_60%)] hover:border hover:border-[var(--border-secondary-color)] hover:shadow-[inset_0_1px_4px_var(--shadow-inset-top),inset_0_-1px_4px_var(--shadow-inset-bottom)]"
+        }`}
       onClick={onClick}>
       {icon}
       {label}
