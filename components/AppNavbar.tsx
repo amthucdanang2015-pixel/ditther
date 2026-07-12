@@ -179,15 +179,15 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
 
       {/* Mobile Bottom Bar */}
       <nav className="fixed inset-x-0 bottom-0 z-50 flex h-[70px] md:hidden items-center justify-around bg-[#0f0f10] border-t border-white/5 px-2 pb-2">
-        <MobileNavButton icon={<RotateCcw size={20} />} label="Reset" />
-        <MobileNavButton icon={<Sparkles size={20} />} label="Backgrounds" />
+        <MobileNavButton icon={<RotateCcw size={20} />} label="Reset" onClick={resetBtn} />
+        <MobileNavButton icon={<Sparkles size={20} />} label="Backgrounds" onClick={() => { console.log("Background") }} />
         <button
           onClick={() => fileInputRef.current?.click()}
           className="h-14 w-14 rounded-full border border-white/10 bg-[linear-gradient(180deg,#777_0%,#a5a5a5_100%)] hover:opacity-90 flex items-center justify-center transition shadow-lg -translate-y-2">
           <Plus size={24} className="text-black" />
         </button>
-        <MobileNavButton icon={<Omega size={20} />} label="Compare" />
-        <MobileNavButton icon={<Crop size={20} />} label="Crop" />
+        <MobileNavButton icon={<Omega size={20} />} label="Compare" active={compareMode} onClick={() => onCompare?.()} />
+        <MobileNavButton icon={<Crop size={20} />} label="Crop" active={cropMode} onClick={() => onCrop?.()} />
       </nav>
 
       {/* ── Founding / Pro Modal ── */}
@@ -201,9 +201,11 @@ export default function AppNavbar({ handleReset, onImageUpload, compareMode, onC
   );
 }
 
-function MobileNavButton({ icon, label }: { icon: React.ReactNode; label: string }) {
+function MobileNavButton({ icon, label, onClick, active }: { icon: React.ReactNode; label: string; onClick?: () => void; active?: boolean }) {
   return (
-    <button className="flex flex-col items-center gap-1 text-[10px] text-white/50 hover:text-white transition">
+    <button 
+      onClick={onClick}
+      className={`flex flex-col items-center gap-1 text-[10px] transition ${active ? "text-[#9ad013]" : "text-white/50 hover:text-white"}`}>
       {icon}
       {label}
     </button>
