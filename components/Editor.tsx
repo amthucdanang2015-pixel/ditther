@@ -406,7 +406,7 @@ export default function Editor() {
 
                 <main className="flex-none h-[55vh] md:h-auto md:flex-1 flex flex-col bg-[#141415]">
                     <div className="flex-1 p-5">
-                        <div className="h-full rounded-[28px] bg-[#1d1d20] p-8">
+                        <div className="h-full rounded-[28px] bg-[#1d1d20]">
                             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-black">
                                 {/* Pending badge shown while React schedules the transition */}
                                 {isPending && (

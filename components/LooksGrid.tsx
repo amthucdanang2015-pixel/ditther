@@ -19,13 +19,15 @@ const lookTxt = [
 
 
 export default function LooksGrid({ onLookClick }: { onLookClick?: (look: string) => void }) {
+    const cardClass =
+        "relative w-full aspect-[1.5] overflow-hidden rounded-md group";
     return (
-        <div className="grid grid-cols-3 gap-1.5">
+        <div className="grid grid-cols-3 gap-2">
             {looks.map((img, index) => (
                 <button
                     key={img}
                     onClick={() => onLookClick?.(lookTxt[index])}
-                    className="flex justify-center relative h-[50px] aspect-[1.5] overflow-hidden rounded-md group cursor-pointer"
+                    className={cardClass}
                 >
                     <Image
                         loading="eager"
@@ -39,8 +41,8 @@ export default function LooksGrid({ onLookClick }: { onLookClick?: (look: string
                 </button>
             ))}
 
-            <button className="relative aspect-[1.2] overflow-hidden rounded-2xl bg-zinc-900">
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/50 cursor-pointer">
+            <button className={cardClass}>
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 bg-black/50 cursor-pointer">
                     <Grid2x2 size={20} />
                     View all
                 </div>
