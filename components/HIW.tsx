@@ -34,7 +34,7 @@ export default function HIW() {
   return (
     <section
       id="hiw"
-      className="bg-[#0d0d0f] py-28 overflow-hidden max-[800px]:px-[20px]"
+      className="bg-[#141417] py-28 overflow-hidden max-[800px]:py-[72px] max-[800px]:px-5"
     >
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-20 max-w-3xl">

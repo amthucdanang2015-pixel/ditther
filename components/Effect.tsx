@@ -16,7 +16,7 @@ const strips = [
 
 export default function Effect() {
   return (
-    <section id="effects" className="bg-[#0d0d0f] py-32 max-[800px]:px-[20px]">
+    <section id="effects" className="bg-[#0d0d0f] py-32 max-[800px]:py-[72px] max-[800px]:px-5">
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-20 max-w-3xl">
           <p className="text-[11px] tracking-[0.1em] text-[#c8f542] uppercase mb-4 font-normal">
@@ -34,10 +34,10 @@ export default function Effect() {
         </div>
 
         {/* Gallery */}
-        <div className="space-y-10">
+        <div className="space-y-3">
           {Array.from({ length: Math.ceil(strips.length / 2) }).map(
             (_, row) => (
-              <div key={row} className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+              <div key={row} className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                 {strips.slice(row * 2, row * 2 + 2).map((src, index) => (
                   <motion.div
                     key={src}
